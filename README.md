@@ -18,7 +18,7 @@
 |           |-- code-options/
 |           |-- editor-options/
 |           |-- git-provider/
-
+|           |-- other-plugs.lua
 |       |--plugin-setup.lua 
 |-- plugin/
 |-- init.lua
