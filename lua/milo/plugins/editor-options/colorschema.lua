@@ -1,8 +1,8 @@
 return {
-  --"Mofiqul/vscode.nvim",
+  "Mofiqul/vscode.nvim",
   --"catppuccin/nvim",
   --"sainnhe/gruvbox-material",
-  "catppuccin/nvim",
+  --"catppuccin/nvim",
 
   --
   --'olimorris/onedarkpro.nvim',
@@ -17,43 +17,43 @@ return {
 
     -- Correcto: llamada al esquema de colores
     --vim.cmd("colorscheme tokyonight-night")
-    --vim.cmd("colorscheme vscode")
+    vim.cmd("colorscheme vscode")
     --vim.cmd("colorscheme catppuccin-mocha")
-    require("catppuccin").setup({
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
-      -- background = { -- options: dark, light
-      --   light = "latte",
-      --   dark = "mocha",
-      -- },
-      -- transparent_background = true,
-      -- term_colors = true,
-      -- styles = {
-      --   comments = { "italic" },
-      --   conditionals = { "italic" },
-      --   loops = { "italic" },
-      --   functions = { "italic" },
-      --   keywords = { "italic" },
-      --   strings = { "NONE" },
-      --   variables = { "NONE" },
-      --   numbers = { "NONE" },
-      --   booleans = { "NONE" },
-      --   properties = { "NONE" },
-      --   types = { "NONE" },
-      -- },
-      color_overrides = {
-        mocha = {
-          base = bg,
-          mantle = bg,
-          crust = bg,
-          --base = "#000000",
-          --mantle = "#000000",
-          --crust = "#000000",
-        },
-      },
-    })
+    -- require("catppuccin").setup({
+    --   flavour = "mocha", -- latte, frappe, macchiato, mocha
+    --   -- background = { -- options: dark, light
+    --   --   light = "latte",
+    --   --   dark = "mocha",
+    --   -- },
+    --   -- transparent_background = true,
+    --   -- term_colors = true,
+    --   -- styles = {
+    --   --   comments = { "italic" },
+    --   --   conditionals = { "italic" },
+    --   --   loops = { "italic" },
+    --   --   functions = { "italic" },
+    --   --   keywords = { "italic" },
+    --   --   strings = { "NONE" },
+    --   --   variables = { "NONE" },
+    --   --   numbers = { "NONE" },
+    --   --   booleans = { "NONE" },
+    --   --   properties = { "NONE" },
+    --   --   types = { "NONE" },
+    --   -- },
+    --   color_overrides = {
+    --     mocha = {
+    --       base = bg,
+    --       mantle = bg,
+    --       crust = bg,
+    --       --base = "#000000",
+    --       --mantle = "#000000",
+    --       --crust = "#000000",
+    --     },
+    --   },
+    -- })
 
 
-    vim.cmd("colorscheme catppuccin-mocha")
+    --vim.cmd("colorscheme catppuccin-mocha")
 
 
     -- -- -- Folder of nerdtree

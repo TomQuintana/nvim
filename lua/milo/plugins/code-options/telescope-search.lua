@@ -8,25 +8,23 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
   },
+
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
 
     telescope.setup({
       defaults = {
         sorting_strategy = "ascending",
         layout_strategy = "vertical",
-        --layout_config = { prompt_position = "top" },
         layout_config = {
-          --prompt_position = "top",
-          prompt_position = "top", -- El buscador queda arriba
-          --results_height = 0.3,
+          prompt_position = "top",
           vertical = {
             size = {
               width = "95%",
               height = "95%",
             },
-            --preview_height = 0,
           },
         },
         border = true,
@@ -35,7 +33,20 @@ return {
           i = {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.move_selection_next,
-            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["<C-d>"] = function(prompt_bufnr)
+              local current_picker = action_state.get_current_picker(prompt_bufnr)
+              local selected_entry = action_state.get_selected_entry()
+              vim.api.nvim_buf_delete(selected_entry.bufnr, { force = true })
+              current_picker:refresh()
+            end,
+          },
+          n = {
+            ["<C-d>"] = function(prompt_bufnr)
+              local current_picker = action_state.get_current_picker(prompt_bufnr)
+              local selected_entry = action_state.get_selected_entry()
+              vim.api.nvim_buf_delete(selected_entry.bufnr, { force = true })
+              current_picker:refresh()
+            end,
           },
         },
       },
@@ -45,8 +56,8 @@ return {
           gitsigns = false,
           initial_mode = "normal",
           layout_config = {
-            width = 0.9, -- Cambia el ancho del panel del file browser
-            height = 0.9, -- Cambia la altura del panel del file browser
+            width = 0.9,
+            height = 0.9,
           },
           icons = {
             folder = "",
@@ -60,7 +71,7 @@ return {
 
     local keymap = vim.keymap
 
-    vim.keymap.set("n", "fb", function()
+    keymap.set("n", "fb", function()
       telescope.extensions.file_browser.file_browser({
         respect_gitignore = false,
         hidden = true,
@@ -74,40 +85,26 @@ return {
       })
     end)
 
-    vim.keymap.set("n", "fp", function()
+    keymap.set("n", "fp", function()
       telescope.extensions.file_browser.file_browser({
-        path = vim.fn.expand("%:p:h"), -- Carpeta actual del archivo
-        select_buffer = true, -- Selecciona el buffer actual
-        previewer = false, -- Desactiva el preview
+        path = vim.fn.expand("%:p:h"),
+        select_buffer = true,
+        previewer = false,
         layout_config = {
           height = 30,
-          prompt_position = "top", -- El buscador queda arriba
+          prompt_position = "top",
         },
       })
     end)
 
-    --   vim.keymap.set(
-    --   "n",
-    --   "<leader>fp",
-    --   function()
-    --     require("telescope.builtin").file_browser({
-    --       path = vim.fn.expand("%:p:h"), -- Carpeta actual del archivo
-    --       select_buffer = true,         -- Selecciona el buffer actual
-    --       previewer = false             -- Desactiva el preview
-    --     })
-    --   end,
-    --   { desc = "Open file browser at current file location without preview" }
-    -- )
-
     keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-    keymap.set("n", "<leader>tb", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find files in cwd" })
-    --keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
+    keymap.set("n", "<leader>lb", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find buffers" })
     keymap.set("n", "<leader>ts", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
     keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-
     keymap.set("n", "<leader>td", "<cmd>TodoTelescope<cr>", { desc = "Find all todos" })
-    keymap.set("n", "<leader>tt", "<cmd>Telescope treesitter <cr>", { desc = "Find all todos" })
+    keymap.set("n", "<leader>tt", "<cmd>Telescope treesitter <cr>", { desc = "Find all treesitter symbols" })
     keymap.set("n", "<leader>te", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Show errors in buffer" })
-    keymap.set("n", "<leader>tr", "<cmd>Telescope diagnostics<cr>", { desc = "Show errors in all proyect" })
+    keymap.set("n", "<leader>tr", "<cmd>Telescope diagnostics<cr>", { desc = "Show errors in all project" })
   end,
+
 }

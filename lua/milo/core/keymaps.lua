@@ -51,6 +51,7 @@ keymap.set("n", "<leader>rn", vim.lsp.buf.rename) -- smart rename
 -- Copilot chat
 keymap.set("n", "<leader>cp", "<cmd>CopilotChat<CR>") -- smart rename
 keymap.set("n", "<leader>cq", "<cmd>CopilotChatClose<CR>") -- smart rename
+keymap.set("n", "<leader>cf", "<cmd>CopilotChatFix<CR>", { noremap = true, silent = true })
 
 -- window management
 keymap.set("n", "<leader>vs", "<C-w>v") -- split window vertically
@@ -62,4 +63,3 @@ keymap.set('n', '<leader>jj', '<cmd>normal 20j<CR>')
 keymap.set('n', '<leader>kk', '<cmd>normal 20k<CR>')
 
 
-keymap.set("n", "<leader>cf", "<cmd>CopilotChatFix<CR>", { noremap = true, silent = true })

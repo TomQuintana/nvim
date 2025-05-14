@@ -186,12 +186,12 @@ return {
                 if client.supports_method("textDocument/formatting") then
                   vim.lsp.buf.format({ async = false })
                 end
-                if client.supports_method("textDocument/codeAction") then
-                  vim.lsp.buf.code_action({
-                    context = { only = { "source.organizeImports", "source.fixAll" } },
-                    apply = true,
-                  })
-                end
+                -- if client.supports_method("textDocument/codeAction") then
+                --   vim.lsp.buf.code_action({
+                --     context = { only = { "source.organizeImports", "source.fixAll" } },
+                --     apply = true,
+                --   })
+                -- end
               end,
             })
           end,
