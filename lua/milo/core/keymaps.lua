@@ -66,8 +66,9 @@ keymap.set("n", "<leader>rn", vim.lsp.buf.rename) -- smart rename
 keymap.set("n", "[d", vim.diagnostic.goto_prev) -- jump to previous diagnostic in buffer
 keymap.set("n", "]d", vim.diagnostic.goto_next) -- jump to next diagnostic in buffer
 keymap.set("n", "<leader>be", "<cmd>Lspsaga show_workspace_diagnostics<CR>", { desc = "Show workspace diagnostics" })
-keymap.set("n", "<leader>le", "<cmd>Lspsaga show_buf_diagnostics<CR>", { desc = "Show buffer diagnostics" })
+--keymap.set("n", "<leader>le", "<cmd>Lspsaga show_buf_diagnostics<CR>", { desc = "Show buffer diagnostics" })
 keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { desc = "Show cursor diagnostics" })
+keymap.set("n", "<leader>le", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show cursor diagnostics" })
 
 -- ================================
 -- TELESCOPE - SEARCH & FIND
@@ -81,3 +82,5 @@ keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Git b
 keymap.set("n", "<leader>cp", "<cmd>CopilotChat<CR>") -- open copilot chat
 keymap.set("n", "<leader>cq", "<cmd>CopilotChatClose<CR>") -- close copilot chat
 keymap.set("n", "<leader>cf", "<cmd>CopilotChatFix<CR>", { noremap = true, silent = true }) -- fix with copilot
+
+keymap.set("n", "<leader>kh", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
