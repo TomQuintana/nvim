@@ -51,21 +51,21 @@ return {
     })
 
     -- Formatear al guardar (versión corregida)
-    -- vim.api.nvim_create_autocmd("BufWritePre", {
-    --   pattern = "*",
-    --   callback = function(args)
-    --     local ft = vim.bo[args.buf].filetype
-    --     local formatters = get_active_formatters(ft)
-    --     if #formatters > 0 then
-    --       conform.format({
-    --         lsp_fallback = true,
-    --         async = false,
-    --         timeout_ms = 1000,
-    --       })
-    --     end
-    --   end,
-    --   desc = "Autoformat on save (if formatter available)",
-    -- })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "tom-workspace/*",
+      callback = function(args)
+        local ft = vim.bo[args.buf].filetype
+        local formatters = get_active_formatters(ft)
+        if #formatters > 0 then
+          conform.format({
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 1000,
+          })
+        end
+      end,
+      desc = "Autoformat on save (if formatter available)",
+    })
 
     -- Tecla para formatear manualmente (sin cambios)
     vim.keymap.set({ "n", "v" }, "<leader>fa", function()

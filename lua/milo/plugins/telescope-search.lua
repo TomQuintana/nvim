@@ -4,8 +4,8 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    --"nvim-tree/nvim-web-devicons",
-    "nvim-telescope/telescope-file-browser.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "nvim-telescope/telescope-file-browser.nvim", -- Eliminar o comentar esta línea
     "nvim-telescope/telescope-ui-select.nvim",
   },
 
@@ -28,7 +28,7 @@ return {
           },
         },
         border = true,
-        path_display = { "truncate " },
+        path_display = { "truncate" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous,
@@ -51,26 +51,30 @@ return {
         },
       },
       extensions = {
-        file_browser = {
-          previewer = true,
-          gitsigns = false,
-          initial_mode = "normal",
-          layout_config = {
-            width = 0.9,
-            height = 0.9,
-          },
-          icons = {
-            folder = "",
-          },
-        },
+        -- Eliminar todo el bloque file_browser si no lo vas a usar
+        -- file_browser = {
+        --   previewer = true,
+        --   gitsigns = false,
+        --   initial_mode = "normal",
+        --   layout_config = {
+        --     width = 0.9,
+        --     height = 0.9,
+        --   },
+        --   icons = {
+        --     folder = "",
+        --   },
+        -- },
       },
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("file_browser")
+    -- Eliminar esta línea si no vas a usar file_browser
+    -- telescope.load_extension("file_browser")
+    telescope.load_extension("ui-select")
 
     local keymap = vim.keymap
 
+    -- Eliminar estos keymaps si no vas a usar file_browser
     keymap.set("n", "fb", function()
       telescope.extensions.file_browser.file_browser({
         respect_gitignore = false,
@@ -102,9 +106,8 @@ return {
     keymap.set("n", "<leader>ts", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
     keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
     keymap.set("n", "<leader>td", "<cmd>TodoTelescope<cr>", { desc = "Find all todos" })
-    keymap.set("n", "<leader>tt", "<cmd>Telescope treesitter <cr>", { desc = "Find all treesitter symbols" })
+    keymap.set("n", "<leader>tt", "<cmd>Telescope treesitter<cr>", { desc = "Find all treesitter symbols" })
     keymap.set("n", "<leader>te", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Show errors in buffer" })
     keymap.set("n", "<leader>tr", "<cmd>Telescope diagnostics<cr>", { desc = "Show errors in all project" })
   end,
-
 }

@@ -23,8 +23,6 @@ return {
 
     local keymap = vim.keymap -- for conciseness
 
-    keymap.set("n", "<leader>s", "<cmd>BufferLineCycleNext<CR>")
-    keymap.set("n", "<leader>a", "<cmd>BufferLineCyclePrev<CR>")
     keymap.set("n", "<leader>bc", "<cmd>BufferLineCloseOthers <CR>", { desc = "Close all buffers except current" })
     keymap.set("n", "<leader>lb", "<cmd>Telescope buffers<cr>", { desc = "Find string under cursor in cwd" })
     keymap.set("n", "<leader>bf", "<cmd>BufferLinePickClose<CR>")
