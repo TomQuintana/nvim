@@ -106,20 +106,9 @@ return {
   },
   
   {
-    "sainnhe/gruvbox-material",
-    lazy = true,
-    config = function()
-      vim.g.gruvbox_material_style = "mix"
-      vim.g.gruvbox_material_enable_italic = 1
-      vim.g.gruvbox_material_enable_bold = 1
-    end,
-  },
-  
-  -- Tema Sequoia (CORREGIDO)
-  {
     "forest-nvim/sequoia.nvim",
-    lazy = false,     -- Cargar inmediatamente si quieres usarlo
-    priority = 1000,  -- Alta prioridad
+    lazy = false,
+    priority = 1000,
     config = function()
       require("sequoia").setup({
         style = "main", -- main, night, rise
@@ -133,13 +122,45 @@ return {
         },
       })
       
-      -- Aplicar el tema después de la configuración
-
-       vim.cmd([[highlight @variable.python guifg=#86bbd8]])
-      vim.cmd("colorscheme sequoia") -- o 'sequoia-night' / 'sequoia-rise'
+      -- Aplicar el tema
+      vim.cmd("colorscheme sequoia")
+      
+      -- Personalizar colores para que coincida con VSCode
+      vim.api.nvim_set_hl(0, "Normal", { bg = "#1e1e1e" }) -- Fondo VSCode
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#252526" }) -- Ventanas flotantes
+      vim.api.nvim_set_hl(0, "StatusLine", { bg = "#007acc", fg = "#ffffff" }) -- Barra de estado
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#3c3c3c", fg = "#cccccc" }) -- Barra inactiva
+      vim.api.nvim_set_hl(0, "TabLine", { bg = "#2d2d30", fg = "#cccccc" })
+      vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#2d2d30" })
+      vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#1e1e1e", fg = "#ffffff" })
+      
+      -- Sidebar (NvimTree, etc.)
+      vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "#252526", fg = "#cccccc" })
+      vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { bg = "#1e1e1e", fg = "#1e1e1e" })
+      
+      -- Telescope
+      vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "#1e1e1e" })
+      vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "#1e1e1e", fg = "#3c3c3c" })
+      vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = "#2d2d30" })
+      vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = "#2d2d30", fg = "#2d2d30" })
+      vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = "#1e1e1e" })
+      vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = "#1e1e1e", fg = "#1e1e1e" })
+      vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = "#1e1e1e" })
+      vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = "#1e1e1e", fg = "#1e1e1e" })
+      
+      -- Variables Python (manteniendo tu personalización)
+      vim.api.nvim_set_hl(0, "@variable.python", { fg = "#86bbd8" })
+      
+      -- Menus y popups
+      vim.api.nvim_set_hl(0, "Pmenu", { bg = "#252526", fg = "#cccccc" })
+      vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#094771", fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3e3e42" })
+      vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#535353" })
+      
+      -- Split windows
+      vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3c3c3c", bg = "#1e1e1e" })
     end,
   },
-  
   -- Otros temas disponibles pero inactivos
   -- { "olimorris/onedarkpro.nvim", lazy = true },
   -- { "navarasu/onedark.nvim", lazy = true },
