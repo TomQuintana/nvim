@@ -8,6 +8,7 @@ return {
   },
   config = function()
     -- Corrijo el nombre de los servidores en ensure_installed
+    
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
@@ -33,7 +34,7 @@ return {
     local lspconfig = require("lspconfig")
 
     -- Configuración para servidores estándar
-    local servers = { "html", "cssls", "tailwindcss","pyright", "lua_ls"  }
+    local servers = { "html", "cssls", "tailwindcss","pyright", "lua_ls", "ruff"  }
     for _, server_name in ipairs(servers) do
       lspconfig[server_name].setup({
         on_attach = on_attach,
