@@ -7,6 +7,12 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
+    -- Corrijo el nombre de los servidores en ensure_installed
+    require("mason-lspconfig").setup({
+      ensure_installed = { "pyright", "lua_ls" },
+    })
+
+    -- Actualizo la forma de definir signos de diagnóstico
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
@@ -24,13 +30,15 @@ return {
       keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
       keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
       keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+      -- Agrego keymap para usar las acciones de código de lspsaga
+      keymap.set("n", "<leader>sa", "<cmd>Lspsaga code_action<CR>", { desc = "Lspsaga Code Action", noremap = true, silent = true, buffer = bufnr })
     end
 
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local lspconfig = require("lspconfig")
 
     -- Configuración para servidores estándar
-    local servers = { "html", "cssls", "tailwindcss", "lua_ls", "pyright", "tsserver" }
+    local servers = { "html", "cssls", "tailwindcss" }
     for _, server_name in ipairs(servers) do
       lspconfig[server_name].setup({
         on_attach = on_attach,
@@ -38,7 +46,7 @@ return {
       })
     end
 
-    -- Configuración condicional para ruff_lsp
+    -- Corrijo la configuración condicional para ruff_lsp
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "python",
       callback = function()
@@ -60,10 +68,14 @@ return {
         end
 
         if has_ruff_config or vim.fn.filereadable(util.path.join(root_dir, "ruff.toml")) == 1 then
-          lspconfig.ruff_lsp.setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-          })
+          if lspconfig.ruff then
+            lspconfig.ruff.setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+            })
+          else
+            vim.notify("ruff no está disponible", vim.log.levels.ERROR)
+          end
         end
       end,
     })
