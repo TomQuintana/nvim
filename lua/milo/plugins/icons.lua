@@ -83,16 +83,16 @@ return {
         cterm_color = "65",
         name = "README",
       },
-      ["py"] = {
-        icon = "",
-        color = "#4faef7",
-        cterm_color = "65",
-        name = "python",
-      },
+      -- ["py"] = {
+      --   icon = "",
+      --   color = "#4faef7",
+      --   cterm_color = "65",
+      --   name = "python",
+      -- },
     })
 
     require("nvim-web-devicons").set_default_icon("", "#41535b")
-    require("nvim-web-devicons").set_default_icon("", "#0078D4")
+    --require("nvim-web-devicons").set_default_icon("", "#0078D4")
     --require("nvim-web-devicons").set_default_icon('󰂺', '#41535b')
     require("nvim-web-devicons").set_default_icon("", "#7a0d21")
     require("nvim-web-devicons").set_default_icon("", "#e37933")

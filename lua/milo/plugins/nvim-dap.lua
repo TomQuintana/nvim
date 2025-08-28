@@ -48,27 +48,16 @@ return {
         commented = true,
       })
 
-      -- Definición de los signos de los breakpoints
-      vim.fn.sign_define("DapBreakpoint", {
-        text = "",
-        texthl = "DiagnosticSignError",
-        linehl = "",
-        numhl = "",
-      })
-
-      vim.fn.sign_define("DapBreakpointRejected", {
-        text = "", -- or "❌"
-        texthl = "DiagnosticSignError",
-        linehl = "",
-        numhl = "",
-      })
-
-      vim.fn.sign_define("DapStopped", {
-        text = "", -- or "→"
-        texthl = "DiagnosticSignWarn",
-        linehl = "Visual",
-        numhl = "DiagnosticSignWarn",
-      })
+      -- Define DAP signs using modern approach
+      local dap_signs = {
+        DapBreakpoint = { text = "", texthl = "DiagnosticSignError" },
+        DapBreakpointRejected = { text = "", texthl = "DiagnosticSignError" },
+        DapStopped = { text = "", texthl = "DiagnosticSignWarn", linehl = "Visual", numhl = "DiagnosticSignWarn" },
+      }
+      
+      for name, sign in pairs(dap_signs) do
+        vim.fn.sign_define(name, sign)
+      end
 
       -- Abrir/cerrar DAP UI automáticamente
       dap.listeners.after.event_initialized["dapui_config"] = function()

@@ -104,6 +104,46 @@ return {
       })
     end,
   },
+
+  {
+    "sainnhe/gruvbox-material",
+    lazy = true,
+    config = function()
+      -- Configurar gruvbox-material
+      vim.g.gruvbox_material_style = 'mix' -- hard, medium, soft, mix
+      vim.g.gruvbox_material_background = 'medium' -- hard, medium, soft
+      vim.g.gruvbox_material_transparent_background = 0
+      vim.g.gruvbox_material_enable_italic = 1
+      vim.g.gruvbox_material_cursor = 'auto'
+      vim.g.gruvbox_material_sign_column_background = 'none'
+      vim.g.gruvbox_material_spell_foreground = 'none'
+      vim.g.gruvbox_material_ui_contrast = 'low' -- low, high
+      vim.g.gruvbox_material_show_eob = 1
+      vim.g.gruvbox_material_diagnostic_text_highlight = 0
+      vim.g.gruvbox_material_diagnostic_line_highlight = 0
+      vim.g.gruvbox_material_diagnostic_virtual_text = 'grey'
+      vim.g.gruvbox_material_current_word = 'grey background'
+      vim.g.gruvbox_material_disable_terminal_colors = 0
+    end,
+  },
+
+  {
+    "mikesmithgh/gruvsquirrel.nvim",
+    lazy = true,
+    config = function()
+      require("gruvsquirrel").setup({
+        -- Configuraciones específicas del tema gruvsquirrel
+        transparent = false,
+        terminal_colors = true,
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = {},
+          variables = {},
+        },
+      })
+    end,
+  },
   
   {
     "forest-nvim/sequoia.nvim",
@@ -123,7 +163,7 @@ return {
       })
       
       -- Aplicar el tema
-      vim.cmd("colorscheme sequoia")
+      vim.cmd("colorscheme gruvbox-material")
       
       -- Personalizar colores para que coincida con VSCode
       vim.api.nvim_set_hl(0, "Normal", { bg = "#1e1e1e" }) -- Fondo VSCode
