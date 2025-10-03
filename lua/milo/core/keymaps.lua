@@ -36,6 +36,16 @@ keymap.set("n", "<leader>hs", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>es", "<C-w>=") -- make split windows equal width & height
 keymap.set("n", "<leader>xs", ":close<CR>") -- close current split window
 
+-- Window resizing (especially useful for NERDTree)
+keymap.set("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window height" })
+keymap.set("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
+keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
+
+-- Alternative keys for window resizing
+keymap.set("n", "<leader>+", ":vertical resize +5<CR>", { desc = "Increase width by 5" })
+keymap.set("n", "<leader>-", ":vertical resize -5<CR>", { desc = "Decrease width by 5" })
+
 -- ================================
 -- TMUX INTEGRATION
 -- ================================

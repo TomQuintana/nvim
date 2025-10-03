@@ -8,21 +8,21 @@ return {
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "rafamadriz/friendly-snippets", -- useful snippets
     "onsails/lspkind.nvim", -- vs-code like pictograms
-    "Exafunction/codeium.nvim", -- Add codeium.nvim for AI-based completions
+    --"Exafunction/codeium.nvim", -- Add codeium.nvim for AI-based completions
   },
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
-    local codeium = require("codeium")
+    --local codeium = require("codeium")
 
     -- Load vscode-style snippets from installed plugins (e.g., friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
 
     -- Configure codeium.nvim
-    codeium.setup({
-      -- You can add any custom setup options for Codeium here, if needed
-    })
+    -- codeium.setup({
+    --   -- You can add any custom setup options for Codeium here, if needed
+    -- })
 
     cmp.setup({
       completion = {
