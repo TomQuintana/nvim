@@ -18,7 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   { import = "milo.plugins" },
   { import = "milo.plugins.git-provider" },
-  { import = "milo.plugins.monorepo" },
   { import = "milo.plugins.ia" },
   { import = "milo.plugins.lsp" }
   -- { import = "milo.plugins.ide-options" },
