@@ -94,3 +94,22 @@ keymap.set("n", "<leader>cq", "<cmd>CopilotChatClose<CR>") -- close copilot chat
 keymap.set("n", "<leader>cf", "<cmd>CopilotChatFix<CR>", { noremap = true, silent = true }) -- fix with copilot
 
 keymap.set("n", "<leader>kh", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
+
+vim.keymap.set('n', '<leader>nd', function()
+  local buf = vim.api.nvim_create_buf(false, true)
+  local width = math.floor(vim.o.columns * 0.4)
+  local height = vim.o.lines - 4
+  
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = vim.o.columns - width - 2,
+    row = 1,
+    style = 'minimal',
+    border = 'rounded'
+  }
+  
+  vim.api.nvim_open_win(buf, true, opts)
+  vim.cmd('edit /Users/tomquintana/Documents/Obsidian\\ Vault/Tom-Docs/Quadminds/Notas\\ del\\ dia\\ a\\ dia.md')
+end, { noremap = true, silent = true })

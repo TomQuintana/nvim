@@ -25,7 +25,7 @@ return {
         
         -- Override colors (see ./lua/vscode/colors.lua)
         color_overrides = {
-          vscLineNumber = '#FFFFFF',
+          vscLineNumber = '#808080',
         },
         
         -- Override highlight groups (see ./lua/vscode/theme.lua)
@@ -35,9 +35,23 @@ return {
           Cursor = { fg = '#FFFFFF', bg = '#FF0000', bold = true },
         }
       })
-      
-      -- Set the colorscheme to VSCode
       vim.cmd("colorscheme vscode")
+    end,
+  },
+  {
+    "forest-nvim/sequoia.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      --vim.cmd("colorscheme sequoia")
+    end,
+  },
+  {
+    "Mofiqul/dracula.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      --vim.cmd("colorscheme dracula")
     end,
   },
 }
