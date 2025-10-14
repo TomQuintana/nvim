@@ -30,6 +30,16 @@ return {
 
   -- TMUX INTEGRATION
   { key = "<C-m>",       desc = "Tmux navigate right" },
+  { key = "<C-h>",       desc = "Tmux navigate left" },
+  { key = "<C-j>",       desc = "Tmux navigate down" },
+  { key = "<C-k>",       desc = "Tmux navigate up" },
+  { key = "<C-l>",       desc = "Tmux navigate right" },
+  { key = "<C-p> |",     desc = "Tmux split vertical" },
+  { key = "<C-p> -",     desc = "Tmux split horizontal" },
+  { key = "<C-p> M",     desc = "Tmux auto-maximize ON" },
+  { key = "<C-p> m",     desc = "Tmux auto-maximize OFF" },
+  { key = "<C-p> z",     desc = "Tmux toggle auto-maximize" },
+  { key = "<C-p> r",     desc = "Tmux reload config" },
 
   -- PLUGIN MANAGEMENT
   { key = "<leader>lz",  desc = "Open Lazy" },
@@ -51,36 +61,50 @@ return {
   { key = "<leader>le",  desc = "Show buffer diagnostics" },
   { key = "<leader>d",   desc = "Show cursor diagnostics" },
 
-  -- TELESCOPE - SEARCH & FIND
-  { key = "<leader>tf",  desc = "Search function or methods in file" },
-  { key = "<leader>gb",  desc = "Git branches with actions" },
-
   -- GIT INTEGRATION
   { key = "<leader>gn",  desc = "Git - Next hunk" },
   { key = "<leader>gp",  desc = "Git - Previous hunk" },
 
   -- DAP (DEBUG ADAPTER PROTOCOL)
-  { key = "<leader>db",  desc = "DAP - Toggle Breakpoint" },
-  { key = "<leader>dc",  desc = "DAP - Continue" },
-  { key = "<leader>do",  desc = "DAP - Step Over" },
-  { key = "<leader>di",  desc = "DAP - Step Into" },
-  { key = "<leader>dO",  desc = "DAP - Step Out" },
-  { key = "<leader>dq",  desc = "DAP - Terminate" },
-  { key = "<leader>du",  desc = "DAP - UI" },
+  -- { key = "<leader>db",  desc = "DAP - Toggle Breakpoint" },
+  -- { key = "<leader>dc",  desc = "DAP - Continue" },
+  -- { key = "<leader>do",  desc = "DAP - Step Over" },
+  -- { key = "<leader>di",  desc = "DAP - Step Into" },
+  -- { key = "<leader>dO",  desc = "DAP - Step Out" },
+  -- { key = "<leader>dq",  desc = "DAP - Terminate" },
+  -- { key = "<leader>du",  desc = "DAP - UI" },
 
   -- FORMATTING & LINTING
   { key = "<leader>fa",  desc = "Format - All" },
   { key = "<leader>l",   desc = "Linters" },
 
-  -- COPILOT CHAT
-  { key = "<leader>cp",  desc = "Open copilot chat" },
-  { key = "<leader>cq",  desc = "Close copilot chat" },
-  { key = "<leader>cf",  desc = "Fix with copilot" },
-  { key = "<leader>ccm", desc = "CopilotChat - Commit" },
-  { key = "<leader>ccf", desc = "CopilotChat - Fix" },
+    -- TELESCOPE - FILE BROWSER & SEARCH
+  { key = "fb",          desc = "File browser" },
+  { key = "fp",          desc = "File browser in current path" },
+  { key = "<leader>fe",  desc = "Find .env files" },
+  { key = "<leader>ff",  desc = "Fuzzy find files in cwd" },
+  { key = "<leader>ts",  desc = "Find string in cwd (live grep)" },
+  { key = "<leader>fc",  desc = "Find string under cursor in cwd" },
+  { key = "<leader>td",  desc = "Find all todos" },
+  { key = "<leader>tt",  desc = "Find all treesitter symbols" },
+  { key = "<leader>te",  desc = "Show errors in buffer" },
+  { key = "<leader>tr",  desc = "Show errors in all project" },
 
-  -- AVANTE
-  { key = "<leader>aq",  desc = "Avante - Edit" },
+  -- COMPLETION (Insert mode)
+  { key = "<C-k>",       desc = "Previous suggestion (insert mode)" },
+  { key = "<Tab>",       desc = "Next suggestion (insert mode)" },
+  { key = "<C-Space>",   desc = "Show completion suggestions (insert mode)" },
+  { key = "<CR>",        desc = "Confirm selection (insert mode)" },
+
+  -- DIFFVIEW (Git diff viewer)
+  { key = "<tab>",       desc = "Diffview - Next file" },
+  { key = "<s-tab>",     desc = "Diffview - Previous file" },
+  { key = "[x",          desc = "Diffview - Previous conflict" },
+  { key = "]x",          desc = "Diffview - Next conflict" },
+  { key = "<leader>co",  desc = "Diffview - Choose OURS" },
+  { key = "<leader>ct",  desc = "Diffview - Choose THEIRS" },
+  { key = "<leader>cb",  desc = "Diffview - Choose BASE" },
+  { key = "dx",          desc = "Diffview - Delete conflict region" },
 
   -- KEYMAPS HELPER
   { key = "<leader>kh",  desc = "Keymaps Helper" },

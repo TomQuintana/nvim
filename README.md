@@ -3,7 +3,20 @@
 [![Neovim](https://img.shields.io/badge/Neovim-57A143?style=for-the-badge&logo=Neovim&logoColor=white&labelColor=101010)]()
 [![Lua](https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=Lua&logoColor=white&labelColor=101010)]()
 
+## Philosophy
 
+This is a **minimalist Neovim configuration** focused on simplicity and efficiency. The setup follows these principles:
+
+- **Minimal plugin footprint** - Only essential plugins for a productive workflow
+- **External tool integration** - Uses [lazygit](https://github.com/jesseduffield/lazygit) outside of Neovim for git operations
+- **Tmux-first workflow** - Designed to work seamlessly with tmux for terminal multiplexing
+- **Clean separation** - Git operations handled externally, keeping Neovim focused on editing
+
+### Workflow
+
+- **Neovim** - Text editing and code navigation
+- **Lazygit** - Git operations in a separate tmux pane/window
+- **Tmux** - Session and window management
 
 ## Project Structure
 ``` bash
@@ -25,30 +38,33 @@
 
 ```
 
-<h2 align='center'> How to use </h2>
+<h2 align='center'>Configuration Overview</h2>
 
-**init.lua** - Is the principal file in where import all modules
+### Quick Start
 
-**lua/milo** - This folder contain a core and plugs folder and the plugin-setup file
+**init.lua** - Entry point that loads all configuration modules
 
-<h3>Core folder</h3>
+**lua/milo/** - Main configuration directory organized into:
 
-```bash
-|-- colorschema.lua
-|-- keymaps.lua
-|-- options.lua
-```
+### Core Settings (`core/`)
 
-**colorschema** - This folder deals with color type and color changing of any variable
+- **colorschema.lua** - Color scheme and theme settings
+- **keymaps.lua** - Custom keyboard shortcuts
+- **options.lua** - Editor behavior (line numbers, indentation, etc.)
 
-**keymaps** - This folder contains the custom keyboard shortcuts
+### Plugins (`plugs/`)
 
-**options** - In this folder the editor options are housed, such as - the column number or the indentation. 
+Organized by category:
+- **lsp/** - Language server configurations
+- **code-options/** - Code editing enhancements
+- **editor-options/** - Editor UI improvements
+- **git-provider/** - Git integration (minimal, since lazygit is used externally)
+- **other-plugs.lua** - Miscellaneous utilities
 
-<h3>Plugs</h3>
-This folder contains the lsp files and the other plugs
+### Plugin Management
 
-<h3>Plugin-setup</h3>
-In this file all the plugins that are considered necessary are imported
+**plugin-setup.lua** - Defines and imports all plugins using your package manager
+
+The config is structured to be modular and easy to customize - each file has a single responsibility.
 
 
