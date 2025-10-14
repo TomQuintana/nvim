@@ -30,8 +30,6 @@ return {
         
         -- Override highlight groups (see ./lua/vscode/theme.lua)
         group_overrides = {
-          -- this supports the same val table as vim.api.nvim_set_hl
-          -- use colors from this colorscheme by requiring vscode.colors!
           Cursor = { fg = '#FFFFFF', bg = '#FF0000', bold = true },
         }
       })
@@ -43,7 +41,6 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      --vim.cmd("colorscheme sequoia")
     end,
   },
   {
@@ -51,7 +48,6 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      --vim.cmd("colorscheme dracula")
     end,
   },
 }
