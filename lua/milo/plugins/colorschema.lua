@@ -6,6 +6,31 @@ return {
     opts = {},
   },
   {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha",
+        color_overrides = {
+          mocha = {
+            base = "#1a1a1a",
+            mantle = "#151515",
+            crust = "#101010",
+          },
+        },
+      })
+      vim.cmd("colorscheme catppuccin")
+    end,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
     "Mofiqul/vscode.nvim",
     lazy = false,
     priority = 1000,
@@ -33,7 +58,7 @@ return {
           Cursor = { fg = '#FFFFFF', bg = '#FF0000', bold = true },
         }
       })
-      vim.cmd("colorscheme vscode")
+      --vim.cmd("colorscheme vscode")
     end,
   },
   {

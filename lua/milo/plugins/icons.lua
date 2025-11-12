@@ -20,12 +20,12 @@ return {
         cterm_color = "65",
         name = "TestJS",
       },
-      ["js"] = {
-        icon = "",
-        color = "#E8D51E",
-        cterm_color = "65",
-        name = "JS",
-      },
+      -- ["js"] = {
+      --   icon = "",
+      --   color = "#E8D51E",
+      --   cterm_color = "65",
+      --   name = "JS",
+      -- },
       [".eslintrc.json"] = {
         icon = "",
         color = "#5988CF",
@@ -61,12 +61,12 @@ return {
         cterm_color = "65",
         name = "Makefile",
       },
-      ["ts"] = {
-        icon = "",
-        color = "#519aba",
-        cterm_color = "65",
-        name = "TS",
-      },
+      -- ["ts"] = {
+      --   icon = "",
+      --   color = "#519aba",
+      --   cterm_color = "65",
+      --   name = "TS",
+      -- },
       ["sol"] = {
         icon = "",
         color = "#515D70",

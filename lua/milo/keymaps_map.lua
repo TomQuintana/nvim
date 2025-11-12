@@ -91,7 +91,8 @@ return {
   { key = "<leader>tr",  desc = "Show errors in all project" },
 
   -- COMPLETION (Insert mode)
-  { key = "<C-k>",       desc = "Previous suggestion (insert mode)" },
+  { key = "<C-k>",   
+    desc = "Previous suggestion (insert mode)" },
   { key = "<Tab>",       desc = "Next suggestion (insert mode)" },
   { key = "<C-Space>",   desc = "Show completion suggestions (insert mode)" },
   { key = "<CR>",        desc = "Confirm selection (insert mode)" },
@@ -108,4 +109,5 @@ return {
 
   -- KEYMAPS HELPER
   { key = "<leader>kh",  desc = "Keymaps Helper" },
+
 }
