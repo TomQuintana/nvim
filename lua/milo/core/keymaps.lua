@@ -36,7 +36,7 @@ keymap.set("n", "<leader>hs", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>es", "<C-w>=") -- make split windows equal width & height
 keymap.set("n", "<leader>xs", ":close<CR>") -- close current split window
 
--- Window resizing (especially useful for NERDTree)
+-- Window resizing
 keymap.set("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window height" })
 keymap.set("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
 keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
@@ -86,13 +86,6 @@ keymap.set("n", "<leader>le", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc =
 keymap.set("n", "<leader>tf", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Search function or methods in file" })
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Git branches with actions" })
 
--- ================================
--- COPILOT CHAT
--- ================================
-keymap.set("n", "<leader>cp", "<cmd>CopilotChat<CR>") -- open copilot chat
-keymap.set("n", "<leader>cq", "<cmd>CopilotChatClose<CR>") -- close copilot chat
-keymap.set("n", "<leader>cf", "<cmd>CopilotChatFix<CR>", { noremap = true, silent = true }) -- fix with copilot
-
 keymap.set("n", "<leader>kh", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
 
 vim.keymap.set('n', '<leader>nd', function()
@@ -111,5 +104,5 @@ vim.keymap.set('n', '<leader>nd', function()
   }
   
   vim.api.nvim_open_win(buf, true, opts)
-  vim.cmd('edit /Users/tomquintana/Documents/Obsidian\\ Vault/Tom-Docs/Quadminds/Notas\\ del\\ dia\\ a\\ dia.md')
+  vim.cmd('edit ' .. vim.fn.expand('~') .. '/Documents/Obsidian\\ Vault/Tom-Docs/Quadminds/Notas\\ del\\ dia\\ a\\ dia.md')
 end, { noremap = true, silent = true })

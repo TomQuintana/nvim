@@ -2,18 +2,26 @@ return {
   'akinsho/toggleterm.nvim',
   version = "*",
   config = function()
+    local normal_size = math.floor(vim.o.lines * 0.35)
+    local expanded = false
+
     require("toggleterm").setup({
-      size = 20,
-      open_mapping = [[<c-.>]],        -- Ctrl+. para abrir/cerrar
-      hide_numbers = true,
+      size = function(term)
+        if term.direction == "horizontal" then
+          return normal_size
+        end
+      end,
+      open_mapping = [[<c-/>]],
+      hide_numbers = false,
       shade_terminals = true,
       start_in_insert = true,
-      persist_size = true,
-      direction = "float",             -- Flotante
-      float_opts = {
-        border = "curved",
-        width = 120,
-        height = 30,
+      persist_size = false,
+      direction = "horizontal",
+      winbar = {
+        enabled = true,
+        name_formatter = function(term)
+          return " " .. term.id .. ": " .. (term.display_name or "terminal") .. " "
+        end,
       },
     })
 
@@ -25,6 +33,29 @@ return {
 
     -- Salir de insert mode
     vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
+    -- Nueva terminal (como el botón + de VSCode)
+    vim.keymap.set('n', '<C-.>', function()
+      local count = #require("toggleterm.terminal").get_all()
+      vim.cmd((count + 1) .. "ToggleTerm")
+    end, { desc = "New terminal" })
+
+    -- Cambiar entre terminales por número (<leader>t1, t2, ...)
+    for i = 1, 9 do
+      vim.keymap.set('n', '<leader>t' .. i, '<cmd>' .. i .. 'ToggleTerm<cr>',
+        { desc = "Terminal " .. i })
+    end
+
+    -- Expandir / contraer terminal
+    vim.keymap.set({ 'n', 't' }, '<leader>te', function()
+      if expanded then
+        vim.cmd('resize ' .. normal_size)
+        expanded = false
+      else
+        vim.cmd('resize ' .. math.floor(vim.o.lines * 0.75))
+        expanded = true
+      end
+    end, { desc = "Toggle expand terminal" })
   end
 }
 

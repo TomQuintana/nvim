@@ -10,9 +10,7 @@ return {
       auto_save_enabled = true,
       auto_restore_enabled = true,
       -- Comandos pre y post cambio de directorio
-      pre_cwd_changed_cmds = {
-        "tabdo NERDTreeClose" -- Cierra NERDTree antes de guardar la sesión
-      },
+      pre_cwd_changed_cmds = {},
       post_cwd_changed_cmds = {
         function()
           require("lualine").refresh() -- Ejemplo: refresca la línea de estado de Lualine DESPUÉS de que el directorio de trabajo cambie

@@ -29,16 +29,7 @@ return {
 
     local on_attach = function(client, bufnr)
       local keymap = vim.keymap
-      local opts = { noremap = true, silent = true, buffer = bufnr }
 
-      -- keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-      -- --keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-      -- keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-      -- keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-      -- keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-      -- keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-      -- keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-      -- Agrego keymap para usar las acciones de código de lspsaga
       keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>",
         { desc = "Lspsaga Code Action", noremap = true, silent = true, buffer = bufnr })
     end
@@ -82,8 +73,6 @@ return {
               on_attach = on_attach,
               capabilities = capabilities,
             })
-          else
-            vim.notify("ruff no está disponible", vim.log.levels.ERROR)
           end
         end
       end,

@@ -14,8 +14,8 @@ vim.cmd("autocmd FileType * setlocal formatoptions-=r")
 vim.cmd("autocmd FileType * setlocal formatoptions-=o")
 
 
--- opt.scroll = 3 -- Desplaza 3 líneas por scroll
--- opt.scrolloff = 5 -- Mantiene 5 líneas de margen al final/inicio del archivo
+opt.smoothscroll = true     -- Smooth scrolling (Neovim 0.10+)
+opt.scrolloff = 8           -- Mantiene 8 líneas de margen al final/inicio del archivo
 
 -- line numbers 
 opt.relativenumber = true
@@ -38,3 +38,13 @@ opt.background = "dark"
 opt.signcolumn = "yes"
 
 opt.clipboard:append("unnamedplus")
+
+-- Performance optimizations
+opt.updatetime = 200        -- Faster CursorHold events (default 4000ms)
+opt.timeoutlen = 300        -- Faster mapped sequence timeout
+opt.lazyredraw = false      -- Keep false for compatibility with Noice
+opt.synmaxcol = 300         -- Limit syntax highlighting width
+opt.hidden = true           -- Allow switching buffers without saving
+opt.swapfile = false        -- No swap files
+opt.backup = false          -- No backup files
+opt.undofile = true         -- Persistent undo
