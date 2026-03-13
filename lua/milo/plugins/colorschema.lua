@@ -1,6 +1,6 @@
 -- Cambia este valor para seleccionar el tema activo:
 -- "vscode" | "sequoia" | "sequoia-night" | "sequoia-rise" | "sequoia-fog" | "sequoia-ember" | "sequoia-moss"
-local THEME = "sequoia"
+local THEME = "tokyonight"
 
 return {
   {
@@ -87,45 +87,46 @@ return {
       })
     end,
   },
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("tokyonight").setup({
-  --       style = "night",
-  --       transparent = false,
-  --       terminal_colors = true,
-  --       styles = {
-  --         comments = { italic = true },
-  --         keywords = { italic = true },
-  --         functions = {},
-  --         variables = {},
-  --       },
-  --       on_colors = function(colors)
-  --         colors.bg = "#1c1c1c"
-  --         colors.bg_dark = "#1c1c1c"
-  --         colors.bg_float = "#1c1c1c"
-  --         colors.bg_highlight = "#222222"
-  --         colors.bg_popup = "#1c1c1c"
-  --         colors.bg_search = "#222222"
-  --         colors.bg_sidebar = "#1c1c1c"
-  --         colors.bg_statusline = "#1c1c1c"
-  --       end,
-  --       on_highlights = function(hl, c)
-  --         hl["@variable"] = { fg = "#7dcfff" }
-  --         hl["@variable.builtin"] = { fg = "#ff9e64" }
-  --         hl["@variable.parameter"] = { fg = "#e0af68" }
-  --         hl["@variable.member"] = { fg = "#9ece6a" }
-  --         hl["Identifier"] = { fg = "#7dcfff" }
-  --         hl["@parameter"] = { fg = "#e0af68" }
-  --         hl["@field"] = { fg = "#9ece6a" }
-  --         hl["@property"] = { fg = "#73daca" }
-  --       end,
-  --     })
-  --     vim.cmd("colorscheme tokyonight")
-  --   end,
-  -- },
+  {
+    "folke/tokyonight.nvim",
+    lazy = THEME ~= "tokyonight",
+    priority = 1000,
+    config = function()
+      if THEME ~= "tokyonight" then return end
+      require("tokyonight").setup({
+        style = "night",
+        transparent = false,
+        terminal_colors = true,
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = {},
+          variables = {},
+        },
+        on_colors = function(colors)
+          colors.bg = "#1c1c1c"
+          colors.bg_dark = "#1c1c1c"
+          colors.bg_float = "#1c1c1c"
+          colors.bg_highlight = "#222222"
+          colors.bg_popup = "#1c1c1c"
+          colors.bg_search = "#222222"
+          colors.bg_sidebar = "#1c1c1c"
+          colors.bg_statusline = "#1c1c1c"
+        end,
+        on_highlights = function(hl, c)
+          hl["@variable"] = { fg = "#7dcfff" }
+          hl["@variable.builtin"] = { fg = "#ff9e64" }
+          hl["@variable.parameter"] = { fg = "#e0af68" }
+          hl["@variable.member"] = { fg = "#9ece6a" }
+          hl["Identifier"] = { fg = "#7dcfff" }
+          hl["@parameter"] = { fg = "#e0af68" }
+          hl["@field"] = { fg = "#9ece6a" }
+          hl["@property"] = { fg = "#73daca" }
+        end,
+      })
+      vim.cmd("colorscheme tokyonight")
+    end,
+  },
   -- {
   --   "catppuccin/nvim",
   --   name = "catppuccin",

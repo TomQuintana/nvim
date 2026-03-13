@@ -82,7 +82,12 @@ return {
   -- GIT INTEGRATION
   { key = "<leader>gn",  desc = "Git - Next hunk" },
   { key = "<leader>gp",  desc = "Git - Previous hunk" },
-  { key = "<leader>lg",  desc = "LazyGit" },
+  { key = "<leader>co",  desc = "Git Conflict - Choose ours" },
+  { key = "<leader>ct",  desc = "Git Conflict - Choose theirs" },
+  { key = "<leader>cb",  desc = "Git Conflict - Choose both" },
+  { key = "<leader>c0",  desc = "Git Conflict - Choose none" },
+  { key = "]x",          desc = "Git Conflict - Next conflict" },
+  { key = "[x",          desc = "Git Conflict - Previous conflict" },
 
 -- FORMATTING & LINTING
   { key = "<leader>fa",  desc = "Format - All" },

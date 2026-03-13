@@ -6,6 +6,7 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
     "nvim-telescope/telescope-ui-select.nvim",
+    "nvim-telescope/telescope-file-browser.nvim",
   },
 
   config = function()
@@ -54,6 +55,7 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
+    telescope.load_extension("file_browser")
 
     local keymap = vim.keymap
     local builtin = require("telescope.builtin")
@@ -67,6 +69,8 @@ return {
       })
     end, { desc = "Find .env files" })
 
+    keymap.set("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { desc = "Browse files" })
+    keymap.set("n", "<leader>fp", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", { desc = "Browse from current file path" })
     keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
     keymap.set("n", "<leader>lb", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find buffers" })
     keymap.set("n", "<leader>ts", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })

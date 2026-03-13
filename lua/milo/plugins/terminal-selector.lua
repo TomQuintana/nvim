@@ -4,7 +4,6 @@ return {
   dependencies = { "akinsho/toggleterm.nvim" },
   keys = {
     { "<leader>at", desc = "Select terminal" },
-    { "<leader>cl", desc = "Claude Code terminal" },
     { "<leader>et", desc = "Server terminal" },
     { "<leader>cn", desc = "New terminal" },
   },
@@ -23,18 +22,6 @@ return {
     local function register_terminal(name, term)
       table.insert(terminals, { name = name, term = term })
     end
-
-    -- Claude Code terminal
-    local claude_term = Terminal:new({
-      cmd = "claude",
-      direction = "float",
-      float_opts = float_opts,
-      display_name = "Claude Code",
-      on_open = function()
-        vim.cmd("startinsert!")
-      end,
-    })
-    register_terminal(" Claude Code", claude_term)
 
     -- Server terminal
     local server_term = Terminal:new({
@@ -75,11 +62,6 @@ return {
     end
 
     -- Toggle functions individuales
-    local function claude_term_toggle()
-      close_others(" Claude Code")
-      claude_term:toggle()
-    end
-
     local function server_term_toggle()
       close_others(" Server")
       server_term:toggle()
@@ -151,7 +133,7 @@ return {
 
     -- Keymaps (normal mode)
     vim.keymap.set("n", "<leader>at", select_terminal, { desc = "Select Terminal" })
-    vim.keymap.set("n", "<leader>cl", claude_term_toggle, { desc = "Toggle Claude Code Terminal" })
+
     vim.keymap.set("n", "<leader>et", server_term_toggle, { desc = "Toggle Server Terminal" })
     vim.keymap.set("n", "<leader>cn", new_terminal, { desc = "New Terminal" })
 
