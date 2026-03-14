@@ -2,8 +2,7 @@ return {
   'akinsho/toggleterm.nvim',
   version = "*",
   config = function()
-    local normal_size = math.floor(vim.o.lines * 0.35)
-    local expanded = false
+    local normal_size = math.floor(vim.o.lines * 0.50)
 
     require("toggleterm").setup({
       size = function(term)
@@ -46,16 +45,6 @@ return {
         { desc = "Terminal " .. i })
     end
 
-    -- Expandir / contraer terminal
-    vim.keymap.set({ 'n', 't' }, '<leader>te', function()
-      if expanded then
-        vim.cmd('resize ' .. normal_size)
-        expanded = false
-      else
-        vim.cmd('resize ' .. math.floor(vim.o.lines * 0.75))
-        expanded = true
-      end
-    end, { desc = "Toggle expand terminal" })
   end
 }
 
