@@ -106,3 +106,7 @@ vim.keymap.set('n', '<leader>nd', function()
   vim.api.nvim_open_win(buf, true, opts)
   vim.cmd('edit ' .. vim.fn.expand('~') .. '/Documents/Obsidian\\ Vault/Tom-Docs/Quadminds/Notas\\ del\\ dia\\ a\\ dia.md')
 end, { noremap = true, silent = true })
+
+
+
+vim.keymap.set("n", "<C-u>", "<C-o>", { desc = "Jump anterior (reemplaza C-o)" })

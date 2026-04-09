@@ -9,13 +9,6 @@ return {
     { "folke/neodev.nvim",                   opts = {} },
   },
   config = function()
-    -- Corrijo el nombre de los servidores en ensure_installed
-
-    -- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-    -- for type, icon in pairs(signs) do
-    --   local hl = "DiagnosticSign" .. type
-    --   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    -- end
     vim.diagnostic.config({
       signs = {
         text = {
@@ -27,55 +20,24 @@ return {
       }
     })
 
-    local on_attach = function(client, bufnr)
-      local keymap = vim.keymap
-
-      keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>",
-        { desc = "Lspsaga Code Action", noremap = true, silent = true, buffer = bufnr })
-    end
-
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local lspconfig = require("lspconfig")
+
+    -- on_attach via LspAttach autocommand (nvim 0.11+ way)
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local bufnr = args.buf
+        vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>",
+          { desc = "Lspsaga Code Action", noremap = true, silent = true, buffer = bufnr })
+      end,
+    })
 
     -- Configuración para servidores estándar
     local servers = { "html", "cssls", "tailwindcss", "pyright", "lua_ls", "ruff" }
     for _, server_name in ipairs(servers) do
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
+      vim.lsp.config(server_name, {
         capabilities = capabilities,
       })
     end
-
-    -- Corrijo la configuración condicional para ruff_lsp
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "python",
-      callback = function()
-        local util = require("lspconfig.util")
-        local root_dir = util.root_pattern("ruff.toml", "pyproject.toml")(vim.api.nvim_buf_get_name(0))
-        if not root_dir then
-          return
-        end
-
-        local has_ruff_config = false
-        local pyproject_path = util.path.join(root_dir, "pyproject.toml")
-        if vim.fn.filereadable(pyproject_path) == 1 then
-          for line in io.lines(pyproject_path) do
-            if line:match("%[tool%.ruff%]") then
-              has_ruff_config = true
-              break
-            end
-          end
-        end
-
-        if has_ruff_config or vim.fn.filereadable(util.path.join(root_dir, "ruff.toml")) == 1 then
-          if lspconfig.ruff then
-            lspconfig.ruff.setup({
-              on_attach = on_attach,
-              capabilities = capabilities,
-            })
-          end
-        end
-      end,
-    })
+    vim.lsp.enable(servers)
   end,
 }

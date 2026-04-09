@@ -4,16 +4,32 @@ return {
     require('auto-session').setup({
       suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
       cwd_change_handling = true,
-      -- Opciones para auto-carga y auto-guardado
-      auto_session_enable_last_session_auto_load = true,
-      auto_session_enable_local_session_auto_load = true,
-      auto_save_enabled = true,
-      auto_restore_enabled = true,
-      -- Comandos pre y post cambio de directorio
+      auto_save = true,
+      auto_restore = true,
+      post_restore_cmds = {
+        function()
+          vim.schedule(function()
+            -- Re-aplicar colorscheme
+            pcall(vim.cmd, "colorscheme vscode")
+            -- Re-disparar filetype detection y treesitter en todos los buffers
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+              if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) ~= "" then
+                vim.api.nvim_buf_call(buf, function()
+                  vim.cmd("filetype detect")
+                  local ft = vim.bo.filetype
+                  if ft and ft ~= "" then
+                    pcall(vim.treesitter.start, buf, ft)
+                  end
+                end)
+              end
+            end
+          end)
+        end
+      },
       pre_cwd_changed_cmds = {},
       post_cwd_changed_cmds = {
         function()
-          require("lualine").refresh() -- Ejemplo: refresca la línea de estado de Lualine DESPUÉS de que el directorio de trabajo cambie
+          require("lualine").refresh()
         end
       }
     })
