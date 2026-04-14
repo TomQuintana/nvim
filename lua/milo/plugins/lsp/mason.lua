@@ -2,6 +2,7 @@ return {
   "williamboman/mason.nvim",
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
   config = function()
     require("mason").setup({
@@ -15,14 +16,27 @@ return {
     })
 
     require("mason-lspconfig").setup({
+      -- automatic_enable = false: evita conflictos de habilitación automática
+      -- lspconfig.lua maneja la habilitación manualmente con configuración específica
+      automatic_enable = false,
       ensure_installed = {
         "html",
         "cssls",
         "tailwindcss",
         "lua_ls",
-        "pyright",
+        "basedpyright", -- Para autocompletado inteligente de Python
+        "ruff",         -- Para linting/formatting de Python
         "stylua",
-        -- "tsserver", -- Descomentar después de actualizar los plugins con :Lazy update
+      },
+      handlers = {
+        -- Handler vacío para evitar configuraciones automáticas duplicadas
+        function() end,
+      },
+    })
+
+    require("mason-tool-installer").setup({
+      ensure_installed = {
+        "prettier",
       },
     })
   end,

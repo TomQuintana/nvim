@@ -17,15 +17,17 @@ return {
     telescope.setup({
       defaults = {
         sorting_strategy = "ascending",
-        layout_strategy = "vertical",
+        layout_strategy = "horizontal",
         layout_config = {
           prompt_position = "top",
-          vertical = {
-            size = {
-              width = "95%",
-              height = "95%",
-            },
+          horizontal = {
+            width = 0.95,
+            height = 0.95,
+            preview_width = 0.55,
           },
+        },
+        preview = {
+          treesitter = false, -- vim.fn.ft_to_lang removed in nvim 0.12
         },
         border = true,
         path_display = { "truncate" },

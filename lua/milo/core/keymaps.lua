@@ -86,7 +86,7 @@ keymap.set("n", "<leader>le", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc =
 keymap.set("n", "<leader>tf", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Search function or methods in file" })
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Git branches with actions" })
 
-keymap.set("n", "<leader>kh", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
+keymap.set("n", "<leader>hk", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
 
 vim.keymap.set('n', '<leader>nd', function()
   local buf = vim.api.nvim_create_buf(false, true)

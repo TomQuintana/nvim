@@ -1,8 +1,9 @@
 local M = {}
 
 function M.open_keymaps_window()
-  local keymaps_path = vim.fn.stdpath('config') .. '/lua/milo/keymaps_map.lua'
+  local keymaps_path = vim.fn.stdpath("config") .. "/lua/milo/keymaps_map.lua"
   local file_content = {}
+
   for line in io.lines(keymaps_path) do
     table.insert(file_content, line)
   end
@@ -16,13 +17,13 @@ function M.open_keymaps_window()
   local col = (vim.o.columns - width) / 2
 
   local win = vim.api.nvim_open_win(buf, true, {
-    relative = 'editor',
+    relative = "editor",
     width = width,
     height = height,
     row = row,
     col = col,
-    style = 'minimal',
-    border = 'single',
+    style = "minimal",
+    border = "single",
   })
 end
 

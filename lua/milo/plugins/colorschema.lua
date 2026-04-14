@@ -1,6 +1,20 @@
-local THEME = "vscode"
+local THEME = "gruvbox-material"
 
 return {
+  {
+    "sainnhe/gruvbox-material",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.gruvbox_material_background           = "hard"
+      vim.g.gruvbox_material_foreground           = "original" -- paleta retro original
+      vim.g.gruvbox_material_enable_italic        = 1
+      vim.g.gruvbox_material_enable_bold          = 1
+      vim.g.gruvbox_material_transparent_background = 0
+      vim.g.gruvbox_material_better_performance   = 1
+      vim.cmd("colorscheme gruvbox-material")
+    end,
+  },
   {
     "Mofiqul/vscode.nvim",
     lazy = false,
@@ -26,31 +40,6 @@ return {
         },
       })
       vim.cmd("colorscheme vscode")
-    end,
-  },
-  {
-    "HiPhish/rainbow-delimiters.nvim",
-    event = "BufReadPost",
-    config = function()
-      local rainbow = require("rainbow-delimiters")
-      require("rainbow-delimiters.setup").setup({
-        strategy = {
-          [""] = rainbow.strategy["global"],
-        },
-        query = {
-          [""] = "rainbow-delimiters",
-          lua = "rainbow-blocks",
-        },
-        highlight = {
-          "RainbowDelimiterRed",
-          "RainbowDelimiterYellow",
-          "RainbowDelimiterBlue",
-          "RainbowDelimiterOrange",
-          "RainbowDelimiterGreen",
-          "RainbowDelimiterViolet",
-          "RainbowDelimiterCyan",
-        },
-      })
     end,
   },
 }

@@ -19,6 +19,9 @@ return {
 
     noice.setup({
       lsp = {
+        progress = {
+          enabled = false, -- deshabilitar ✓ pyright / progreso LSP
+        },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

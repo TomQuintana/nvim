@@ -80,6 +80,7 @@ return {
   { key = "<leader>gb",  desc = "Git branches with actions" },
 
   -- GIT INTEGRATION
+  { key = "<leader>gg",  desc = "LazyGit" },
   { key = "<leader>gn",  desc = "Git - Next hunk" },
   { key = "<leader>gp",  desc = "Git - Previous hunk" },
   { key = "<leader>co",  desc = "Git Conflict - Choose ours" },
@@ -123,7 +124,7 @@ return {
   { key = "<C-]>",       desc = "Exit terminal insert mode (alternate)" },
 
   -- KEYMAPS HELPER
-  { key = "<leader>kh",  desc = "Keymaps Helper" },
+  { key = "<leader>hk",  desc = "Keymaps Helper" },
 
   -- DAP (DEBUG ADAPTER PROTOCOL) - Commented out
   -- { key = "<leader>db",  desc = "DAP - Toggle Breakpoint" },
