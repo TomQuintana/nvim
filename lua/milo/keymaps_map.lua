@@ -12,7 +12,7 @@ return {
   { key = "<leader>kk",  desc = "Jump up 20 lines" },
 
   -- BUFFER MANAGEMENT
-  { key = "<leader>cb",  desc = "Close all buffers" },
+  { key = "<leader>ba",  desc = "Close all buffers" },
   { key = "<leader>m",   desc = "Previous buffer" },
   { key = "<leader>s",   desc = "Next buffer" },
   { key = "<leader>bc",  desc = "Close all buffers except current" },
@@ -34,18 +34,11 @@ return {
   { key = "<leader>+",   desc = "Increase width by 5" },
   { key = "<leader>-",   desc = "Decrease width by 5" },
 
-  -- TMUX INTEGRATION
-  { key = "<C-m>",       desc = "Tmux navigate right" },
-  { key = "<C-h>",       desc = "Tmux navigate left" },
-  { key = "<C-j>",       desc = "Tmux navigate down" },
-  { key = "<C-k>",       desc = "Tmux navigate up" },
-  { key = "<C-l>",       desc = "Tmux navigate right" },
-  { key = "<C-p> |",     desc = "Tmux split vertical" },
-  { key = "<C-p> -",     desc = "Tmux split horizontal" },
-  { key = "<C-p> M",     desc = "Tmux auto-maximize ON" },
-  { key = "<C-p> m",     desc = "Tmux auto-maximize OFF" },
-  { key = "<C-p> z",     desc = "Tmux toggle auto-maximize" },
-  { key = "<C-p> r",     desc = "Tmux reload config" },
+  -- ZELLIJ NAVIGATION
+  { key = "<C-h>",       desc = "Zellij navigate left" },
+  { key = "<C-j>",       desc = "Zellij navigate down" },
+  { key = "<C-k>",       desc = "Zellij navigate up" },
+  { key = "<C-l>",       desc = "Zellij navigate right" },
 
   -- PLUGIN MANAGEMENT
   { key = "<leader>lz",  desc = "Open Lazy" },

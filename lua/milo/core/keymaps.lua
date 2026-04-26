@@ -19,7 +19,7 @@ keymap.set('n', '<leader>kk', '<cmd>normal 20k<CR>')
 -- ================================
 -- BUFFER MANAGEMENT
 -- ================================
-keymap.set("n", "<leader>cb", "<cmd>bufdo bd<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<leader>ba", "<cmd>bufdo bd<CR>", { desc = "Close all buffers" })
 keymap.set('n', '<leader>m', '<cmd>BufferLineCyclePrev<CR>')
 keymap.set('n', '<leader>s', '<cmd>BufferLineCycleNext<CR>')
 
@@ -46,10 +46,7 @@ keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase windo
 keymap.set("n", "<leader>+", ":vertical resize +5<CR>", { desc = "Increase width by 5" })
 keymap.set("n", "<leader>-", ":vertical resize -5<CR>", { desc = "Decrease width by 5" })
 
--- ================================
--- TMUX INTEGRATION
--- ================================
-keymap.set("n", "<C-m>", "<cmd>TmuxNavigateRight<cr>", { noremap = true })
+-- Navigation between panes is handled by zellij.nvim plugin
 
 -- ================================
 -- PLUGIN MANAGEMENT

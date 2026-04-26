@@ -39,8 +39,9 @@ return {
       group = lsp_attach_group,
       callback = function(args)
         local bufnr = args.buf
-        vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>",
-          { desc = "Lspsaga Code Action", noremap = true, silent = true, buffer = bufnr })
+        -- <leader>ca already set globally in keymaps.lua
+        vim.keymap.set("n", "<leader>lo", "<cmd>Lspsaga outgoing_calls<CR>",
+          { desc = "Outgoing calls", noremap = true, silent = true, buffer = bufnr })
       end,
     })
 
@@ -110,8 +111,35 @@ return {
       },
     })
 
-    -- Habilitar servidores básicos + ambos Python LSPs
-    local all_servers = vim.list_extend(basic_servers, { "basedpyright", "ruff" })
+    -- TypeScript/JavaScript: ts_ls para autocompletado e intellisense
+    vim.lsp.config("ts_ls", {
+      capabilities = capabilities,
+      root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+      single_file_support = false,
+      settings = {
+        typescript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+          },
+        },
+        javascript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+          },
+        },
+      },
+    })
+
+    -- Habilitar servidores básicos + ambos Python LSPs + TypeScript
+    local all_servers = vim.list_extend(basic_servers, { "basedpyright", "ruff", "ts_ls" })
     vim.lsp.enable(all_servers)
   end,
 }

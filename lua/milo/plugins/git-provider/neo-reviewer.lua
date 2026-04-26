@@ -1,13 +1,39 @@
 return {
   "dglsparsons/neo-reviewer",
+  lazy = false,
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local nr = require("neo_reviewer")
 
+    local cli_path = "neo-reviewer"
+
     nr.setup({
+      cli_path            = cli_path,
+      signs = {
+        add    = "+",
+        delete = "-",
+        change = "~",
+      },
+      wrap_navigation     = true,
+      auto_expand_deletes = false,
+      thread_window = {
+        keys = {
+          reply  = "r",
+          edit   = "e",
+          delete = "d",
+        },
+      },
+      review_diff = {
+        skip_noise_files = true,
+        noise_files = {
+          "pnpm-lock.yaml",
+          "Cargo.lock",
+        },
+      },
       input_window = {
         keys = {
-          submit = "<C-y>", -- default <C-s> conflicts with tmux prefix
+          submit = "<C-y>",
+          cancel = "<C-c>",
         },
       },
     })
@@ -17,27 +43,31 @@ return {
       vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
     end
 
-    -- Navigation
-    map("n", "<leader>Rn", nr.next_change, "Next change")
-    map("n", "<leader>Rp", nr.prev_change, "Prev change")
-    map("n", "<leader>Rj", nr.next_comment, "Next comment")
-    map("n", "<leader>Rk", nr.prev_comment, "Prev comment")
+    -- Review lifecycle
+    map("n", "<leader>rr", ":ReviewPR<CR>",       "Review PR")
+    map("n", "<leader>rd", nr.review_diff,         "Review local diff")
+    map("n", "<leader>rq", nr.done,                "Close review")
+    map("n", "<leader>rs", nr.sync,                "Sync review")
+
+    -- Navigation (vim convention: ]/[ for forward/backward)
+    map("n", "]r",          nr.next_change,        "Next change")
+    map("n", "[r",          nr.prev_change,        "Prev change")
+    map("n", "]R",          nr.next_comment,       "Next comment")
+    map("n", "[R",          nr.prev_comment,       "Prev comment")
 
     -- Interaction
-    map("n", "<leader>Rc", nr.add_comment, "Add comment")
-    map("v", "<leader>Rc", ":AddComment<CR>", "Add comment on selection")
-    map("n", "<leader>Rv", nr.show_comment, "View comment thread")
-    map("n", "<leader>Ro", nr.toggle_prev_code, "Toggle old code")
-    map("n", "<leader>Rf", nr.show_file_picker, "File picker")
+    map("n", "<leader>rc", nr.add_comment,         "Add comment")
+    map("v", "<leader>rc", ":AddComment<CR>",      "Add comment on selection")
+    map("n", "<leader>rv", nr.show_comment,        "View comment thread")
+    map("n", "<leader>ro", nr.toggle_prev_code,    "Toggle old code")
+    map("n", "<leader>rf", nr.show_file_picker,    "File picker")
 
     -- AI
-    map("n", "<leader>Ri", nr.toggle_ai_feedback, "Toggle AI summary")
-    map("n", "<leader>Rq", nr.ask, "Ask AI about code")
+    map("n", "<leader>ri", nr.toggle_ai_feedback,  "Toggle AI summary")
+    map("n", "<leader>rA", nr.ask,                 "Ask AI about code")
 
-    -- Review actions
-    map("n", "<leader>Ra", nr.approve, "Approve PR")
-    map("n", "<leader>Rx", nr.request_changes, "Request changes")
-    map("n", "<leader>Rd", nr.done, "Close review")
-    map("n", "<leader>Rs", nr.sync, "Sync review")
+    -- Submit
+    map("n", "<leader>ra", nr.approve,             "Approve PR")
+    map("n", "<leader>rx", nr.request_changes,     "Request changes")
   end,
 }
