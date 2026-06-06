@@ -27,6 +27,43 @@ return {
           -- keywords en púrpura retro
           ["@keyword"]          = { fg = "#B16286", bold = true },
           Statement             = { fg = "#B16286", bold = true },
+          -- headings con colores de Tokyo Night night
+          ["@markup.heading.1.markdown"] = { fg = "#7aa2f7", bold = true },
+          ["@markup.heading.2.markdown"] = { fg = "#bb9af7", bold = true },
+          ["@markup.heading.3.markdown"] = { fg = "#e0af68", bold = true },
+          markdownH1 = { fg = "#7aa2f7", bold = true },
+          markdownH2 = { fg = "#bb9af7", bold = true },
+          markdownH3 = { fg = "#e0af68", bold = true },
+          -- headings h4-h6
+          ["@markup.heading.4.markdown"] = { fg = "#2ac3de", bold = true },
+          ["@markup.heading.5.markdown"] = { fg = "#9ece6a", bold = true },
+          ["@markup.heading.6.markdown"] = { fg = "#73daca", bold = true },
+          markdownH4 = { fg = "#2ac3de", bold = true },
+          markdownH5 = { fg = "#9ece6a", bold = true },
+          markdownH6 = { fg = "#73daca", bold = true },
+          -- inline code y bloques de código
+          ["@markup.raw.markdown_inline"] = { fg = "#9ece6a", bg = "#1e2030" },
+          ["@markup.raw.block"]           = { fg = "#9ece6a" },
+          markdownCode                    = { fg = "#9ece6a", bg = "#1e2030" },
+          markdownCodeBlock               = { fg = "#9ece6a" },
+          -- links
+          ["@markup.link"]       = { fg = "#7aa2f7", underline = true },
+          ["@markup.link.url"]   = { fg = "#73daca", underline = true },
+          ["@markup.link.label"] = { fg = "#7dcfff" },
+          markdownLinkText       = { fg = "#7aa2f7", underline = true },
+          markdownUrl            = { fg = "#73daca", underline = true },
+          -- bold e italic
+          ["@markup.strong"]   = { fg = "#e0af68", bold = true },
+          ["@markup.italic"]   = { fg = "#bb9af7", italic = true },
+          markdownBold         = { fg = "#e0af68", bold = true },
+          markdownItalic       = { fg = "#bb9af7", italic = true },
+          -- listas y checkboxes
+          ["@markup.list"]           = { fg = "#7aa2f7" },
+          ["@markup.list.checked"]   = { fg = "#9ece6a" },
+          ["@markup.list.unchecked"] = { fg = "#565f89" },
+          -- blockquotes y separadores
+          ["@markup.quote"] = { fg = "#7dcfff", italic = true },
+          markdownBlockquote = { fg = "#7dcfff", italic = true },
         },
       })
       vim.cmd("colorscheme gruvbox")

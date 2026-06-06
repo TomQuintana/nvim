@@ -39,7 +39,7 @@ return {
     local keymap = vim.keymap
 
     keymap.set("n", "<leader>bc", "<cmd>BufferLineCloseOthers <CR>", { desc = "Close all buffers except current" })
-    keymap.set("n", "<leader>lb", "<cmd>Telescope buffers<cr>", { desc = "Find string under cursor in cwd" })
+    keymap.set("n", "<leader>lb", function() Snacks.picker.buffers() end, { desc = "Fuzzy find buffers" })
     keymap.set("n", "<leader>bf", "<cmd>BufferLinePickClose<CR>")
   end,
 }

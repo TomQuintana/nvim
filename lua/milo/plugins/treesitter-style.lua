@@ -1,10 +1,11 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      local langs = { "c", "lua", "rust", "python", "bash", "json", "html", "css", "javascript", "typescript" }
+      local langs = { "c", "lua", "rust", "python", "bash", "json", "html", "css", "javascript", "typescript", "markdown", "markdown_inline" }
 
       require("nvim-treesitter").install(langs)
 

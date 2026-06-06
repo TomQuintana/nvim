@@ -1,6 +1,7 @@
 return {
   "dglsparsons/neo-reviewer",
-  lazy = false,
+  lazy = true,
+  cmd = { "ReviewPR" },
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local nr = require("neo_reviewer")

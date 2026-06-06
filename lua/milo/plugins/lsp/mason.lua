@@ -24,9 +24,8 @@ return {
         "cssls",
         "tailwindcss",
         "lua_ls",
-        "basedpyright", -- Para autocompletado inteligente de Python
-        "ruff",         -- Para linting/formatting de Python
-        "stylua",
+        "basedpyright",
+        "ruff",
       },
       handlers = {
         -- Handler vacío para evitar configuraciones automáticas duplicadas
@@ -37,6 +36,7 @@ return {
     require("mason-tool-installer").setup({
       ensure_installed = {
         "prettier",
+        "stylua",
       },
     })
   end,

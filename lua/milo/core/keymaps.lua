@@ -56,32 +56,31 @@ keymap.set("n", "<leader>lz", ":Lazy<CR>", { noremap = true })
 -- ================================
 -- LSP - CODE NAVIGATION
 -- ================================
-keymap.set("n", "fd", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek definition" })
-keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", { desc = "Find references and definitions" })
-keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", { desc = "Go to definition" })
-keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>") -- show documentation for what is under cursor
+keymap.set("n", "fd", function() Snacks.picker.lsp_definitions() end, { desc = "Peek definition" })
+keymap.set("n", "gf", function() Snacks.picker.lsp_references() end, { desc = "Find references" })
+keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Go to definition" })
+keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
 
 -- ================================
 -- LSP - CODE ACTIONS & REFACTORING
 -- ================================
-keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>") -- see available code actions, in visual mode will apply to selection
+keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 keymap.set("n", "<leader>rn", vim.lsp.buf.rename) -- smart rename
 
 -- ================================
 -- LSP - DIAGNOSTICS
 -- ================================
-keymap.set("n", "[d", vim.diagnostic.goto_prev) -- jump to previous diagnostic in buffer
-keymap.set("n", "]d", vim.diagnostic.goto_next) -- jump to next diagnostic in buffer
-keymap.set("n", "<leader>be", "<cmd>Lspsaga show_workspace_diagnostics<CR>", { desc = "Show workspace diagnostics" })
---keymap.set("n", "<leader>le", "<cmd>Lspsaga show_buf_diagnostics<CR>", { desc = "Show buffer diagnostics" })
-keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { desc = "Show cursor diagnostics" })
-keymap.set("n", "<leader>le", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show cursor diagnostics" })
+keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous diagnostic" })
+keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next diagnostic" })
+keymap.set("n", "<leader>be", function() Snacks.picker.diagnostics() end, { desc = "Show workspace diagnostics" })
+keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show cursor diagnostics" })
+keymap.set("n", "<leader>le", function() Snacks.picker.diagnostics_buffer() end, { desc = "Show buffer diagnostics" })
 
 -- ================================
--- TELESCOPE - SEARCH & FIND
+-- PICKER - SEARCH & FIND
 -- ================================
-keymap.set("n", "<leader>tf", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Search function or methods in file" })
-keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Git branches with actions" })
+keymap.set("n", "<leader>tf", function() Snacks.picker.lsp_symbols() end, { desc = "Search function or methods in file" })
+keymap.set("n", "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Git branches with actions" })
 
 keymap.set("n", "<leader>hk", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
 
