@@ -119,6 +119,37 @@ return {
   -- KEYMAPS HELPER
   { key = "<leader>hk",  desc = "Keymaps Helper" },
 
+  -- KITTY TERMINAL - TABS
+  { key = "<cmd+t>",          desc = "Kitty - New tab (cwd)" },
+  { key = "<cmd+w>",          desc = "Kitty - Close tab" },
+  { key = "<cmd+1>",          desc = "Kitty - Go to tab 1" },
+  { key = "<cmd+2>",          desc = "Kitty - Go to tab 2" },
+  { key = "<cmd+3>",          desc = "Kitty - Go to tab 3" },
+  { key = "<cmd+4>",          desc = "Kitty - Go to tab 4" },
+  { key = "<cmd+5>",          desc = "Kitty - Go to tab 5" },
+  { key = "<cmd+6>",          desc = "Kitty - Go to tab 6" },
+  { key = "<cmd+7>",          desc = "Kitty - Go to tab 7" },
+  { key = "<cmd+8>",          desc = "Kitty - Go to tab 8" },
+  { key = "<cmd+9>",          desc = "Kitty - Go to tab 9" },
+
+  -- KITTY TERMINAL - PANELS (SPLITS)
+  { key = "<cmd+d>",          desc = "Kitty - New panel/split (cwd)" },
+  { key = "<ctrl+h>",         desc = "Kitty - Navigate panel left" },
+  { key = "<ctrl+l>",         desc = "Kitty - Navigate panel right" },
+  { key = "<ctrl+k>",         desc = "Kitty - Navigate panel up" },
+  { key = "<ctrl+j>",         desc = "Kitty - Navigate panel down" },
+  { key = "<cmd+shift+w>",    desc = "Kitty - Close panel" },
+
+  -- KITTY TERMINAL - LAYOUT & RESIZE
+  { key = "<cmd+shift+enter>", desc = "Kitty - Toggle maximize panel" },
+  { key = "<cmd+left>",       desc = "Kitty - Resize panel narrower" },
+  { key = "<cmd+right>",      desc = "Kitty - Resize panel wider" },
+  { key = "<cmd+up>",         desc = "Kitty - Resize panel taller" },
+  { key = "<cmd+down>",       desc = "Kitty - Resize panel shorter" },
+
+  -- KITTY TERMINAL - OS WINDOWS
+  { key = "<cmd+n>",          desc = "Kitty - New OS window (cwd)" },
+
   -- DAP (DEBUG ADAPTER PROTOCOL) - Commented out
   -- { key = "<leader>db",  desc = "DAP - Toggle Breakpoint" },
   -- { key = "<leader>dc",  desc = "DAP - Continue" },
