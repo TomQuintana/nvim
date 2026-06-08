@@ -11,6 +11,7 @@ return {
     vim.diagnostic.config({
       virtual_text = false,
       update_in_insert = false,
+      float = { source = true },
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = "✘",
@@ -49,7 +50,7 @@ return {
       },
     })
 
-    lspconfig.basedpyright.setup({
+    lspconfig.pyright.setup({
       capabilities = capabilities,
       settings = {
         python = {
