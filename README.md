@@ -1,180 +1,117 @@
-<h1 align="center">Nvim Text Editor</h1>
+<h1 align="center">Nvim Config — Milo</h1>
 
 [![Neovim](https://img.shields.io/badge/Neovim-57A143?style=for-the-badge&logo=Neovim&logoColor=white&labelColor=101010)]()
 [![Lua](https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=Lua&logoColor=white&labelColor=101010)]()
 
 ## Philosophy
 
-This is a **minimalist Neovim configuration** focused on simplicity and efficiency. The setup follows these principles:
+Minimalist Neovim config focused on simplicity and speed. Core principles:
 
-- **Minimal plugin footprint** - Only essential plugins for a productive workflow
-- **External tool integration** - Uses [lazygit](https://github.com/jesseduffield/lazygit) outside of Neovim for git operations
-- **Tmux-first workflow** - Designed to work seamlessly with tmux for terminal multiplexing
-- **Clean separation** - Git operations handled externally, keeping Neovim focused on editing
+- **Snacks-first** — `folke/snacks.nvim` replaces Telescope as the unified picker for files, grep, LSP navigation, buffers, and explorer
+- **External git ops** — [lazygit](https://github.com/jesseduffield/lazygit) via `<leader>lg`, keeps Neovim focused on editing
 
-### Workflow
-
-- **Neovim** - Text editing and code navigation
-- **Lazygit** - Git operations in a separate tmux pane/window
-- **Tmux** - Session and window management
-
-## Project Structure
-``` bash
-|-- lua/
-|   |-- milo/ 
-|       |-- core/
-|           |-- colorschema.lua
-|           |-- keymaps.lua
-|           |-- options.lua
-|       |-- plugs/
-|           |-- lsp/
-|           |-- code-options/
-|           |-- editor-options/
-|           |-- git-provider/
-|           |-- other-plugs.lua
-|       |--plugin-setup.lua 
-|-- plugin/
-|-- init.lua
+## Structure
 
 ```
+lua/milo/
+├── core/
+│   ├── keymaps.lua       ← global keymaps
+│   └── options.lua       ← editor settings
+├── plugins/
+│   ├── snacks.lua        ← picker, explorer, diagnostics, git branches
+│   ├── lsp/              ← lspconfig, mason
+│   ├── git-provider/     ← gitsigns, diffview, lazygit, octo, neo-reviewer
+│   └── ia/               ← copilot
+└── keymaps_map.lua       ← keymap reference table (for helper window)
+```
 
-<h2 align='center'>Configuration Overview</h2>
+## Plugin Overview
 
-### Quick Start
+### Foundation
+| Plugin | Purpose |
+|--------|---------|
+| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | Lua utilities (dependency) |
+| [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | `<C-h/j/k/l>` across vim/tmux splits |
+| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | File icons |
 
-**init.lua** - Entry point that loads all configuration modules
-
-**lua/milo/** - Main configuration directory organized into:
-
-### Core Settings (`core/`)
-
-- **colorschema.lua** - Color scheme and theme settings
-- **keymaps.lua** - Custom keyboard shortcuts
-- **options.lua** - Editor behavior (line numbers, indentation, etc.)
-
-### Plugins (`plugs/`)
-
-Organized by category:
-- **lsp/** - Language server configurations
-- **code-options/** - Code editing enhancements
-- **editor-options/** - Editor UI improvements
-- **git-provider/** - Git integration (minimal, since lazygit is used externally)
-- **other-plugs.lua** - Miscellaneous utilities
-
-### Plugin Management
-
-**plugin-setup.lua** - Defines and imports all plugins using your package manager
-
-The config is structured to be modular and easy to customize - each file has a single responsibility.
-
-## Plugins
-
-This configuration uses [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin manager. All plugins are organized by category for easy maintenance.
-
-### Core Dependencies
-
-- **plenary.nvim** - Lua utility functions (required by many plugins)
-- **nvim-web-devicons** - File icons for UI components
-
-### Editor UI
-
-| Plugin | Purpose | Key Features |
-|--------|---------|--------------|
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Status line | Custom theme, mode indicator, git branch, diff stats |
-| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Buffer/tab line | Visual buffer management |
-| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indentation guides | Visual indentation markers |
-| [noice.nvim](https://github.com/folke/noice.nvim) | UI enhancement | Better command line and notifications |
-| [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim) | Bracket highlighting | Color-coded matching brackets |
-
-### Color Schemes
-
-- [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
-- [vscode.nvim](https://github.com/Mofiqul/vscode.nvim) - Active theme
-- [sequoia.nvim](https://github.com/forest-nvim/sequoia.nvim)
-- [dracula.nvim](https://github.com/Mofiqul/dracula.nvim)
-
-### Fuzzy Finding & Navigation
-
+### Picker & Navigation
 | Plugin | Purpose | Key Mappings |
 |--------|---------|--------------|
-| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder | `<leader>ff` - Find files<br>`<leader>ts` - Live grep<br>`<leader>lb` - List buffers<br>`<leader>td` - Find todos |
-| [telescope-fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | FZF algorithm | Faster fuzzy finding |
-| [telescope-file-browser](https://github.com/nvim-telescope/telescope-file-browser.nvim) | File browser | `fb` - Browse files<br>`fp` - Browse from current file path |
-| [telescope-ui-select](https://github.com/nvim-telescope/telescope-ui-select.nvim) | UI select | Better code action UI |
+| [snacks.nvim](https://github.com/folke/snacks.nvim) | Files, grep, LSP nav, explorer, buffers | `<leader>ff` files · `<leader>ts` grep · `<leader>fb` explorer · `gf` references · `gd` definition · `fd` definition |
+| [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim) | Winbar breadcrumbs | `<leader>;` pick symbol · `[;` context start · `];` next context |
+
+### UI
+| Plugin | Purpose |
+|--------|---------|
+| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Buffer tabs (`<leader>m/s` cycle · `<leader>lb` fuzzy pick) |
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Status bar (evil_lualine theme) |
+| [noice.nvim](https://github.com/folke/noice.nvim) | Better cmdline, messages, notifications |
+| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indentation guides |
+| [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim) | Compact inline diagnostics |
+| [markview.nvim](https://github.com/OXY2DEV/markview.nvim) | Live markdown rendering |
+| [image.nvim](https://github.com/3rd/image.nvim) | Image rendering in terminal (Kitty backend) |
+
+### Color Schemes (active: gruvbox)
+- [gruvbox.nvim](https://github.com/ellisonleao/gruvbox.nvim) — hard contrast, custom markdown highlighting **← active**
+- [catppuccin](https://github.com/catppuccin/nvim) — mocha, configured but inactive
+- [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) — night style, lazy loaded
+- [vscode.nvim](https://github.com/Mofiqul/vscode.nvim) — dark style, lazy loaded
 
 ### LSP & Completion
-
-| Plugin | Purpose | Configuration |
-|--------|---------|---------------|
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP client | html, cssls, tailwindcss, pyright, lua_ls, ruff |
-| [mason.nvim](https://github.com/williamboman/mason.nvim) | LSP installer | Auto-installs language servers |
-| [mason-lspconfig](https://github.com/williamboman/mason-lspconfig.nvim) | Mason-LSP bridge | Integrates Mason with LSP config |
-| [lspsaga.nvim](https://github.com/nvimdev/lspsaga.nvim) | LSP UI | Enhanced code actions, hover docs, rename |
-| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Completion engine | Autocompletion with multiple sources |
-| [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | LSP completion source | LSP-based completions |
-| [cmp-buffer](https://github.com/hrsh7th/cmp-buffer) | Buffer completion | Words from current buffer |
-| [cmp-path](https://github.com/hrsh7th/cmp-path) | Path completion | File system paths |
-| [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Snippet engine | Snippet expansion |
-| [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Snippet collection | Pre-configured snippets |
-| [lspkind.nvim](https://github.com/onsails/lspkind.nvim) | Completion icons | VS Code-like pictograms |
-
-### Syntax & Highlighting
-
 | Plugin | Purpose |
 |--------|---------|
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Advanced syntax highlighting and parsing |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP client — html, cssls, tailwindcss, lua_ls, pyright, ruff, ts_ls |
+| [mason.nvim](https://github.com/williamboman/mason.nvim) | LSP/tool installer |
+| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Completion engine (LSP, buffer, path sources) |
+| [LuaSnip](https://github.com/L3MON4D3/LuaSnip) + friendly-snippets | Snippets |
+| [lspkind.nvim](https://github.com/onsails/lspkind.nvim) | VS Code-style completion icons |
 
-**Installed parsers:** c, lua, rust, python, bash, json, html, css, javascript, typescript
+### Treesitter
+`nvim-treesitter` with parsers: `c lua rust python bash json html css javascript typescript markdown`
 
-### Code Formatting & Linting
+### Formatting & Linting
+| Plugin | Config |
+|--------|--------|
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | `prettier` (JS/TS) · `ruff/isort/black` (Python, project-aware) · `<leader>fa` |
+| [nvim-lint](https://github.com/mfussenegger/nvim-lint) | Project-specific linters |
 
-| Plugin | Purpose | Key Features |
-|--------|---------|--------------|
-| [conform.nvim](https://github.com/stevearc/conform.nvim) | Formatter | prettier (JS/TS), ruff/isort/black (Python)<br>`<leader>fa` - Format file |
-| [nvim-lint](https://github.com/mfussenegger/nvim-lint) | Linting | Project-specific linter configuration |
+### Git
+| Plugin | Purpose | Key |
+|--------|---------|-----|
+| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Hunk signs, inline blame | `<leader>gn/gp` next/prev hunk |
+| [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Diff viewer, merge tool | — |
+| [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim) | LazyGit inside Neovim | `<leader>lg` |
+| [octo.nvim](https://github.com/pwntester/octo.nvim) | GitHub PRs/Issues/Discussions | `<leader>op/oi/od/on` |
+| [neo-reviewer](https://github.com/dglsparsons/neo-reviewer) | In-editor PR review with AI | `<leader>rr` review · `<leader>ra` approve |
 
-### Git Integration
-
-| Plugin | Purpose | Key Mappings |
-|--------|---------|--------------|
-| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Git decorations | `<leader>gn` - Next hunk<br>`<leader>gp` - Previous hunk<br>Inline blame and diff views |
-| [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Git diff viewer | Advanced diff and merge tool |
-
-### AI Assistants
-
+### AI & Editing
 | Plugin | Purpose |
 |--------|---------|
-| [copilot.vim](https://github.com/github/copilot.vim) | GitHub Copilot integration |
-| [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) | Chat interface for Copilot |
-| [claude-code.nvim](https://github.com/anthropics/claude-code) | Claude AI integration |
+| [copilot.vim](https://github.com/github/copilot.vim) | GitHub Copilot |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto-close brackets/quotes |
+| [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround text with brackets/tags |
+| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) | `TODO/FIXME/NOTE` highlighting |
+| [auto-session](https://github.com/rmagatti/auto-session) | Auto session save/restore |
 
-### Editing Enhancements
+## Quick Reference
 
-| Plugin | Purpose |
-|--------|---------|
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto-close brackets, quotes |
-| [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround text with brackets, quotes, tags |
-| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) | Highlight and search TODO comments |
-
-### Workflow
-
-| Plugin | Purpose |
-|--------|---------|
-| [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | Seamless tmux/vim navigation |
-| [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
-
-### Installation
-
-All plugins are automatically installed on first launch via lazy.nvim. To manually sync plugins:
-
-```vim
-:Lazy sync
+```
+<leader>ff   fuzzy find files          <leader>ts   live grep
+<leader>fb   file explorer             <leader>tf   symbols in file
+gf           LSP references            gd           go to definition
+fd           peek definition           K            hover docs
+<leader>ca   code actions              <leader>rn   rename
+<leader>lg   LazyGit                   <leader>op   GitHub PRs
+<leader>hk   keymaps helper window
 ```
 
-To update all plugins:
+## Installation
+
+All plugins auto-install on first launch via lazy.nvim.
 
 ```vim
-:Lazy update
+:Lazy sync    " sync all plugins
+:Lazy update  " update all plugins
 ```
 
-
+> Extended notes, design decisions, and keymap details → [notes.md](./notes.md)
