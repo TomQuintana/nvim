@@ -22,7 +22,6 @@ return {
       },
     })
 
-    local lspconfig = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     local lsp_attach_group = vim.api.nvim_create_augroup("milo_lsp_attach", { clear = true })
@@ -35,13 +34,9 @@ return {
       end,
     })
 
-    -- Servidores básicos (sin config especial)
-    for _, server in ipairs({ "html", "cssls", "tailwindcss" }) do
-      lspconfig[server].setup({ capabilities = capabilities })
-    end
+    vim.lsp.config("*", { capabilities = capabilities })
 
-    lspconfig.lua_ls.setup({
-      capabilities = capabilities,
+    vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
           diagnostics = { globals = { "vim" } },
@@ -50,8 +45,7 @@ return {
       },
     })
 
-    lspconfig.pyright.setup({
-      capabilities = capabilities,
+    vim.lsp.config("pyright", {
       settings = {
         python = {
           analysis = {
@@ -65,8 +59,7 @@ return {
       },
     })
 
-    lspconfig.ruff.setup({
-      capabilities = capabilities,
+    vim.lsp.config("ruff", {
       settings = {
         ruff = {
           lint   = { enable = false },
@@ -75,9 +68,8 @@ return {
       },
     })
 
-    lspconfig.ts_ls.setup({
-      capabilities = capabilities,
-      root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
+    vim.lsp.config("ts_ls", {
+      root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
       single_file_support = false,
       settings = {
         typescript = {
@@ -100,5 +92,7 @@ return {
         },
       },
     })
+
+    vim.lsp.enable({ "html", "cssls", "tailwindcss", "lua_ls", "pyright", "ruff", "ts_ls" })
   end,
 }
