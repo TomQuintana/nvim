@@ -46,7 +46,7 @@ keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase windo
 keymap.set("n", "<leader>+", ":vertical resize +5<CR>", { desc = "Increase width by 5" })
 keymap.set("n", "<leader>-", ":vertical resize -5<CR>", { desc = "Decrease width by 5" })
 
--- Navigation between panes is handled by zellij.nvim plugin
+-- Split navigation (<C-h/j/k/l>) is handled by vim-tmux-navigator plugin
 
 -- ================================
 -- PLUGIN MANAGEMENT
@@ -56,8 +56,6 @@ keymap.set("n", "<leader>lz", ":Lazy<CR>", { noremap = true })
 -- ================================
 -- LSP - CODE NAVIGATION
 -- ================================
-keymap.set("n", "fd", function() Snacks.picker.lsp_definitions() end, { desc = "Peek definition" })
-keymap.set("n", "gf", function() Snacks.picker.lsp_references() end, { desc = "Find references" })
 keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Go to definition" })
 keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
 
@@ -105,4 +103,16 @@ end, { noremap = true, silent = true })
 
 
 
-vim.keymap.set("n", "<C-u>", "<C-o>", { desc = "Jump anterior (reemplaza C-o)" })
+--vim.keymap.set("n", "<C-u>", "<C-o>", { desc = "Jump anterior (reemplaza C-o)" })
+
+-- ================================
+-- TAB MANAGEMENT
+-- ================================
+keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>",   { desc = "New tab" })
+keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close tab" })
+keymap.set("n", "<Tab>",      "<cmd>tabnext<CR>",     { desc = "Next tab" })
+keymap.set("n", "<S-Tab>",    "<cmd>tabprevious<CR>", { desc = "Previous tab" })
+
+-- for i = 1, 9 do
+--   keymap.set("n", "<leader>" .. i, i .. "gt", { desc = "Go to tab " .. i })
+-- end

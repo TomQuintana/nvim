@@ -34,11 +34,11 @@ return {
   { key = "<leader>+",   desc = "Increase width by 5" },
   { key = "<leader>-",   desc = "Decrease width by 5" },
 
-  -- ZELLIJ NAVIGATION
-  { key = "<C-h>",       desc = "Zellij navigate left" },
-  { key = "<C-j>",       desc = "Zellij navigate down" },
-  { key = "<C-k>",       desc = "Zellij navigate up" },
-  { key = "<C-l>",       desc = "Zellij navigate right" },
+  -- SPLIT NAVIGATION (vim-tmux-navigator)
+  { key = "<C-h>",       desc = "Move to left split" },
+  { key = "<C-j>",       desc = "Move to bottom split" },
+  { key = "<C-k>",       desc = "Move to top split" },
+  { key = "<C-l>",       desc = "Move to right split" },
 
   -- PLUGIN MANAGEMENT
   { key = "<leader>lz",  desc = "Open Lazy" },
@@ -106,18 +106,29 @@ return {
   { key = "<leader>b",   desc = "Diffview - Toggle files panel" },
   { key = "g<C-x>",      desc = "Diffview - Cycle layout" },
 
-  -- TERMINAL FLOATING WINDOW
-  { key = "<leader>at",  desc = "Terminal - Select" },
-  { key = "<C-`>",       desc = "Toggle terminal" },
-  { key = "<C-h>",       desc = "Terminal - Navigate left (terminal mode)" },
-  { key = "<C-l>",       desc = "Terminal - Navigate right (terminal mode)" },
-  { key = "<C-j>",       desc = "Terminal - Navigate down (terminal mode)" },
-  { key = "<C-k>",       desc = "Terminal - Navigate up (terminal mode)" },
-  { key = "<Esc>",       desc = "Exit terminal insert mode" },
-  { key = "<C-]>",       desc = "Exit terminal insert mode (alternate)" },
+  -- NEO-TREE FILE EXPLORER
+  { key = "<leader>ee",  desc = "Neo-tree - Toggle sidebar" },
+  { key = "<leader>ef",  desc = "Neo-tree - Reveal current file" },
+  { key = "<leader>eg",  desc = "Neo-tree - Git status" },
+  { key = "<leader>eb",  desc = "Neo-tree - Buffers" },
 
   -- KEYMAPS HELPER
   { key = "<leader>hk",  desc = "Keymaps Helper" },
+
+  -- NVIM TAB MANAGEMENT
+  { key = "<leader>tn",  desc = "New tab" },
+  { key = "<leader>tx",  desc = "Close tab" },
+  { key = "<Tab>",       desc = "Next tab" },
+  { key = "<S-Tab>",     desc = "Previous tab" },
+  { key = "<leader>1",   desc = "Go to tab 1" },
+  { key = "<leader>2",   desc = "Go to tab 2" },
+  { key = "<leader>3",   desc = "Go to tab 3" },
+  { key = "<leader>4",   desc = "Go to tab 4" },
+  { key = "<leader>5",   desc = "Go to tab 5" },
+  { key = "<leader>6",   desc = "Go to tab 6" },
+  { key = "<leader>7",   desc = "Go to tab 7" },
+  { key = "<leader>8",   desc = "Go to tab 8" },
+  { key = "<leader>9",   desc = "Go to tab 9" },
 
   -- KITTY TERMINAL - TABS
   { key = "<cmd+t>",          desc = "Kitty - New tab (cwd)" },
@@ -134,10 +145,10 @@ return {
 
   -- KITTY TERMINAL - PANELS (SPLITS)
   { key = "<cmd+d>",          desc = "Kitty - New panel/split (cwd)" },
-  { key = "<ctrl+h>",         desc = "Kitty - Navigate panel left" },
-  { key = "<ctrl+l>",         desc = "Kitty - Navigate panel right" },
-  { key = "<ctrl+k>",         desc = "Kitty - Navigate panel up" },
-  { key = "<ctrl+j>",         desc = "Kitty - Navigate panel down" },
+  { key = "<cmd+shift+h>",    desc = "Kitty - Navigate panel left" },
+  { key = "<cmd+shift+l>",    desc = "Kitty - Navigate panel right" },
+  { key = "<cmd+shift+k>",    desc = "Kitty - Navigate panel up" },
+  { key = "<cmd+shift+j>",    desc = "Kitty - Navigate panel down" },
   { key = "<cmd+shift+w>",    desc = "Kitty - Close panel" },
 
   -- KITTY TERMINAL - LAYOUT & RESIZE

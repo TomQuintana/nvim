@@ -2,7 +2,6 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  ---@type snacks.Config
   opts = {
     picker = {
       enabled = true,
@@ -59,6 +58,7 @@ return {
       function() Snacks.picker.explorer({ cwd = vim.fn.expand("%:p:h") }) end,
       desc = "Browse from current file path",
     },
+    { "gf",          function() Snacks.picker.lsp_references() end, desc = "Find references" },
     { "<leader>ts", function() Snacks.picker.grep() end, desc = "Find string in cwd" },
     { "<leader>fc", function() Snacks.picker.grep_word() end, desc = "Find string under cursor in cwd" },
     { "<leader>td", function() Snacks.picker.todo_comments() end, desc = "Find all todos" },
