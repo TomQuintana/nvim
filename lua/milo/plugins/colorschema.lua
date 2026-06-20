@@ -72,20 +72,62 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = true,
-    priority = 900,
+    lazy = false,
+    --priority = 1000,
     config = function()
       require("catppuccin").setup({
-        flavour = "mocha",
+        flavour = "mocha", -- mocha es el flavour más oscuro de catppuccin
         color_overrides = {
           mocha = {
-            base   = "#1e1e1e", -- VSCode dark background
-            mantle = "#181818",
-            crust  = "#141414",
+            base   = "#161616", -- VSCode dark, más oscuro
+            mantle = "#121212",
+            crust  = "#0d0d0d",
             red    = "#cba6f7", -- mauve en lugar de rojo
             maroon = "#fab387", -- peach en lugar de maroon
           },
         },
+        -- markdown con paleta de Tokyo Night (night)
+        custom_highlights = function(_colors)
+          return {
+            -- headings h1-h3
+            ["@markup.heading.1.markdown"] = { fg = "#7aa2f7", bold = true },
+            ["@markup.heading.2.markdown"] = { fg = "#bb9af7", bold = true },
+            ["@markup.heading.3.markdown"] = { fg = "#e0af68", bold = true },
+            markdownH1 = { fg = "#7aa2f7", bold = true },
+            markdownH2 = { fg = "#bb9af7", bold = true },
+            markdownH3 = { fg = "#e0af68", bold = true },
+            -- headings h4-h6
+            ["@markup.heading.4.markdown"] = { fg = "#2ac3de", bold = true },
+            ["@markup.heading.5.markdown"] = { fg = "#9ece6a", bold = true },
+            ["@markup.heading.6.markdown"] = { fg = "#73daca", bold = true },
+            markdownH4 = { fg = "#2ac3de", bold = true },
+            markdownH5 = { fg = "#9ece6a", bold = true },
+            markdownH6 = { fg = "#73daca", bold = true },
+            -- inline code y bloques de código
+            ["@markup.raw.markdown_inline"] = { fg = "#9ece6a", bg = "#1e2030" },
+            ["@markup.raw.block"]           = { fg = "#9ece6a" },
+            markdownCode                    = { fg = "#9ece6a", bg = "#1e2030" },
+            markdownCodeBlock               = { fg = "#9ece6a" },
+            -- links
+            ["@markup.link"]       = { fg = "#7aa2f7", underline = true },
+            ["@markup.link.url"]   = { fg = "#73daca", underline = true },
+            ["@markup.link.label"] = { fg = "#7dcfff" },
+            markdownLinkText       = { fg = "#7aa2f7", underline = true },
+            markdownUrl            = { fg = "#73daca", underline = true },
+            -- bold e italic
+            ["@markup.strong"]   = { fg = "#e0af68", bold = true },
+            ["@markup.italic"]   = { fg = "#bb9af7", italic = true },
+            markdownBold         = { fg = "#e0af68", bold = true },
+            markdownItalic       = { fg = "#bb9af7", italic = true },
+            -- listas y checkboxes
+            ["@markup.list"]           = { fg = "#7aa2f7" },
+            ["@markup.list.checked"]   = { fg = "#9ece6a" },
+            ["@markup.list.unchecked"] = { fg = "#565f89" },
+            -- blockquotes
+            ["@markup.quote"]  = { fg = "#7dcfff", italic = true },
+            markdownBlockquote = { fg = "#7dcfff", italic = true },
+          }
+        end,
       })
       --vim.cmd("colorscheme catppuccin")
     end,
@@ -93,7 +135,7 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
-    priority = 900,
+    --priority = 900,
     config = function()
       require("tokyonight").setup({
         style = "night",
@@ -133,7 +175,7 @@ return {
           MatchParen = { fg = "#ffd700", bold = true, underline = true },
         },
       })
-      --vim.cmd("colorscheme vscode")
+      -- vim.cmd("colorscheme vscode")
     end,
   },
 }
