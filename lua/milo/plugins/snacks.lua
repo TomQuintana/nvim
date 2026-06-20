@@ -8,6 +8,8 @@ return {
       enabled = true,
       ui_select = true,
       layout = { preset = "default" },
+      -- ocultar estos directorios/archivos en explorer, files y grep
+      exclude = { ".venv", ".ruff_cache", ".DS_Store", "__pycache__" },
       win = {
         input = {
           keys = {
@@ -19,15 +21,33 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("snacks").setup(opts)
+
+    -- Abrir el file browser (explorer) de Snacks al iniciar Neovim
+    -- cuando se abre sin archivo o sobre un directorio (no durante git commit, etc.)
+    vim.api.nvim_create_autocmd("VimEnter", {
+      group = vim.api.nvim_create_augroup("snacks_explorer_autostart", { clear = true }),
+      callback = function()
+        if vim.bo.buftype ~= "" then return end
+        local argc = vim.fn.argc()
+        local first = argc > 0 and vim.fn.argv(0) or ""
+        local is_dir = first ~= "" and vim.fn.isdirectory(first) == 1
+        if argc == 0 or is_dir then
+          vim.schedule(function() Snacks.picker.explorer() end)
+        end
+      end,
+    })
+  end,
   keys = {
-    { "<leader>ff", function() Snacks.picker.files() end, desc = "Fuzzy find files in cwd" },
+    { "<leader>ff", function() Snacks.picker.files({ hidden = true, ignored = true, args = { "--exclude", ".venv", "--exclude", ".ruff_cache", "--exclude", ".DS_Store", "--exclude", "__pycache__" } }) end, desc = "Fuzzy find files in cwd" },
     {
       "<leader>fe",
       function()
         Snacks.picker.files({
           hidden = true,
           ignored = true,
-          glob = "*.env*",
+          glob = "**/.env*",
           title = "Find .env files",
         })
       end,
