@@ -79,6 +79,8 @@ keymap.set("n", "<leader>le", function() Snacks.picker.diagnostics_buffer() end,
 -- ================================
 keymap.set("n", "<leader>tf", function() Snacks.picker.lsp_symbols() end, { desc = "Search function or methods in file" })
 keymap.set("n", "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Git branches with actions" })
+--keymap.set("n", "<leader>fb", function() Snacks.picker.explorer({ cwd = vim.fn.expand("%:p:h") }) end, { desc = "Explorer (current file dir)" })
+keymap.set("n", "<leader>fp", function() Snacks.picker.explorer() end, { desc = "Explorer (cwd)" })
 
 keymap.set("n", "<leader>hk", "<cmd>lua require('milo.keymaps_window').open_keymaps_window()<CR>", { desc = "Keymaps Helper" })
 
@@ -110,8 +112,8 @@ end, { noremap = true, silent = true })
 -- ================================
 keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>",   { desc = "New tab" })
 keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close tab" })
-keymap.set("n", "<Tab>",      "<cmd>tabnext<CR>",     { desc = "Next tab" })
-keymap.set("n", "<S-Tab>",    "<cmd>tabprevious<CR>", { desc = "Previous tab" })
+keymap.set("n", "]t", "<cmd>tabnext<CR>",     { desc = "Next tab" })
+keymap.set("n", "[t", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
 
 -- for i = 1, 9 do
 --   keymap.set("n", "<leader>" .. i, i .. "gt", { desc = "Go to tab " .. i })

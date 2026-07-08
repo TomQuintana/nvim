@@ -163,7 +163,7 @@ return {
   config = function()
     require('lualine').setup({
       options = {
-        theme = 'evil_lualine',
+        theme = 'auto',
       },
       sections = {
         lualine_x = { 'filetype' },

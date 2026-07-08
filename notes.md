@@ -7,33 +7,33 @@
 ## Architecture Decisions
 
 ### Snacks replaces Telescope
-`folke/snacks.nvim` es el picker central para todo: archivos, grep, LSP, buffers, ramas git, explorer, diagnostics. Telescope ya no está instalado excepto como dependencia de `octo.nvim`.
+`folke/snacks.nvim` is the central picker for everything: files, grep, LSP, buffers, git branches, explorer, diagnostics. Telescope is no longer installed except as a dependency of `octo.nvim`.
 
-**Por qué:** Snacks tiene integración nativa con LSP, carga más rápido y la configuración es más simple. El layout unificado es consistente en toda la UI.
+**Why:** Snacks has native LSP integration, loads faster, and is simpler to configure. The unified layout is consistent across the entire UI.
 
-**Archivos afectados:**
-- `lua/milo/plugins/snacks.lua` — configuración del picker, layout, keys
-- `lua/milo/core/keymaps.lua` — keymaps LSP usan `Snacks.picker.*`
+**Affected files:**
+- `lua/milo/plugins/snacks.lua` — picker config, layout, keys
+- `lua/milo/core/keymaps.lua` — LSP keymaps use `Snacks.picker.*`
 
-### `Snacks` como global
-Cuando `require("snacks").setup(opts)` corre, el plugin registra `_G.Snacks` automáticamente. Como snacks tiene `lazy = false, priority = 1000`, siempre está disponible antes de que cualquier tecla sea presionada. Los keymaps en `keymaps.lua` usan funciones anónimas para diferir la evaluación.
+### `Snacks` as a global
+When `require("snacks").setup(opts)` runs, the plugin automatically registers `_G.Snacks`. Since snacks has `lazy = false, priority = 1000`, it is always available before any key is pressed. Keymaps in `keymaps.lua` use anonymous functions to defer evaluation.
 
-### Orden de carga en init.lua
+### Load order in init.lua
 ```lua
-require("milo.core.options")   -- primero, sin dependencias
-require("milo.core.keymaps")   -- segundo, registra keymaps (Snacks no evaluado todavía)
-require("milo.lazy")           -- tercero, carga plugins (Snacks, etc.)
+require("milo.core.options")   -- first, no dependencies
+require("milo.core.keymaps")   -- second, registers keymaps (Snacks not evaluated yet)
+require("milo.lazy")           -- third, loads plugins (Snacks, etc.)
 ```
 
-**Implicación:** keymaps que usan `Snacks.*` directamente (sin función anónima) fallarían. Todos deben estar envueltos en `function() ... end`. Los keymaps que dependen de plugins deben ir en el bloque `keys` del plugin spec, no en `keymaps.lua`.
+**Implication:** keymaps that use `Snacks.*` directly (without an anonymous function) would fail. All must be wrapped in `function() ... end`. Keymaps that depend on a plugin should go in that plugin's `keys` spec, not in `keymaps.lua`.
 
 ---
 
 ## Keymap Design
 
 ### LSP Navigation
-| Key | Action | Archivo |
-|-----|--------|---------|
+| Key | Action | File |
+|-----|--------|------|
 | `gf` | `Snacks.picker.lsp_references()` | `snacks.lua` (keys spec) |
 | `gd` | `Snacks.picker.lsp_definitions()` | `keymaps.lua` |
 | `fd` | `Snacks.picker.lsp_definitions()` | `keymaps.lua` |
@@ -42,85 +42,85 @@ require("milo.lazy")           -- tercero, carga plugins (Snacks, etc.)
 | `<leader>rn` | `vim.lsp.buf.rename` | `keymaps.lua` |
 | `<leader>lo` | `vim.lsp.buf.outgoing_calls` | `lspconfig.lua` (LspAttach) |
 
-**Nota sobre `gf`:** Snacks tiene un default propio para `gf` → `lsp_definitions`. Para que `gf` → `lsp_references` funcione, el keymap debe estar en el bloque `keys` de `snacks.lua`, no en `keymaps.lua`. Si está en `keymaps.lua`, Snacks lo sobreescribe al cargar.
+**Note on `gf`:** Snacks has its own default for `gf` → `lsp_definitions`. For `gf` → `lsp_references` to work, the keymap must be in the `keys` block of `snacks.lua`, not in `keymaps.lua`. If placed in `keymaps.lua`, Snacks overwrites it on load.
 
 ### LSP Diagnostics
 | Key | Action |
 |-----|--------|
-| `[d` / `]d` | saltar al diagnóstico anterior/siguiente (con float) |
-| `<leader>d` | abrir float de diagnóstico en cursor |
-| `<leader>be` | diagnósticos del workspace (picker) |
-| `<leader>le` | diagnósticos del buffer actual (picker) |
+| `[d` / `]d` | jump to previous/next diagnostic (with float) |
+| `<leader>d` | open diagnostic float at cursor |
+| `<leader>be` | workspace diagnostics (picker) |
+| `<leader>le` | current buffer diagnostics (picker) |
 
 ### Buffer & Tab Navigation
 | Key | Action |
 |-----|--------|
-| `<leader>m` / `<leader>s` | buffer anterior / siguiente |
+| `<leader>m` / `<leader>s` | previous / next buffer |
 | `<leader>lb` | fuzzy find buffers (Snacks) |
-| `<leader>bc` | cerrar todos los buffers excepto el actual |
-| `<leader>bf` | pick buffer para cerrar |
-| `<Tab>` / `<S-Tab>` | siguiente / anterior tab de Neovim |
-| `<leader>tn` / `<leader>tx` | nuevo tab / cerrar tab |
+| `<leader>bc` | close all buffers except current |
+| `<leader>bf` | pick buffer to close |
+| `<Tab>` / `<S-Tab>` | next / previous Neovim tab |
+| `<leader>tn` / `<leader>tx` | new tab / close tab |
 
 ### Picker (Snacks)
 | Key | Action |
 |-----|--------|
-| `<leader>ff` | fuzzy find archivos (incluye hidden/ignored, excluye .venv etc.) |
+| `<leader>ff` | fuzzy find files (includes hidden/ignored, excludes .venv etc.) |
 | `<leader>fb` | file explorer |
-| `<leader>fp` | explorer desde el path del archivo actual |
-| `<leader>fe` | buscar archivos .env |
-| `<leader>ts` | live grep en el proyecto |
-| `<leader>fc` | grep de la palabra bajo el cursor |
-| `<leader>tf` | symbols LSP en el archivo actual |
-| `<leader>gb` | ramas git con acciones |
-| `<leader>td` | buscar todos los TODOs |
-| `<leader>tt` | symbols de treesitter |
+| `<leader>fp` | explorer from current file path |
+| `<leader>fe` | find .env files |
+| `<leader>ts` | live grep in project |
+| `<leader>fc` | grep word under cursor |
+| `<leader>tf` | LSP symbols in current file |
+| `<leader>gb` | git branches with actions |
+| `<leader>td` | find all TODOs |
+| `<leader>tt` | treesitter symbols |
 
-**Keys dentro del picker:**
-- `<C-j>` / `<C-k>` — moverse por la lista
-- `<C-d>` — cerrar buffer desde el picker de buffers
+**Keys inside the picker:**
+- `<C-j>` / `<C-k>` — move through the list
+- `<C-d>` — delete buffer from buffer picker
 
 ### Git
 | Key | Action | Plugin |
 |-----|--------|--------|
 | `<leader>lg` | LazyGit | lazygit.nvim |
-| `<leader>gn` / `<leader>gp` | siguiente/anterior hunk | gitsigns |
-| `<leader>op` | listar PRs de GitHub | octo.nvim |
-| `<leader>oi` | listar issues de GitHub | octo.nvim |
-| `<leader>od` | listar discussions | octo.nvim |
-| `<leader>on` | notificaciones de GitHub | octo.nvim |
-| `<leader>rr` | review PR actual | neo-reviewer |
-| `<leader>ra` / `<leader>rx` | aprobar / request changes | neo-reviewer |
-| `<leader>rc` | agregar comentario en review | neo-reviewer |
-| `]r` / `[r` | siguiente/anterior cambio en review | neo-reviewer |
+| `<leader>gn` / `<leader>gp` | next/previous hunk | gitsigns |
+| `<leader>op` | list GitHub PRs | octo.nvim |
+| `<leader>oi` | list GitHub issues | octo.nvim |
+| `<leader>od` | list GitHub discussions | octo.nvim |
+| `<leader>on` | GitHub notifications | octo.nvim |
+| `<leader>rr` | review current PR | neo-reviewer |
+| `<leader>ra` / `<leader>rx` | approve / request changes | neo-reviewer |
+| `<leader>rc` | add review comment | neo-reviewer |
+| `]r` / `[r` | next/previous change in review | neo-reviewer |
 
 ### Dropbar (breadcrumbs)
 | Key | Action |
 |-----|--------|
-| `<leader>;` | pick symbol en la winbar |
-| `[;` | ir al inicio del contexto actual |
-| `];` | seleccionar próximo contexto |
+| `<leader>;` | pick symbol in winbar |
+| `[;` | go to start of current context |
+| `];` | select next context |
 
-### Notas Diarias
-`<leader>nd` — abre un panel flotante derecho (40% del ancho) con el archivo de notas diarias de Obsidian.
+### Daily Notes
+`<leader>nd` — opens a floating right panel (40% width) with the Obsidian daily notes file.
 
 ---
 
 ## LSP Servers
 
-Configurados en `lua/milo/plugins/lsp/lspconfig.lua`:
+Configured in `lua/milo/plugins/lsp/lspconfig.lua`:
 
-| Server | Lenguajes | Notas |
+| Server | Languages | Notes |
 |--------|-----------|-------|
 | `html` | HTML | — |
 | `cssls` | CSS | — |
 | `tailwindcss` | Tailwind | — |
-| `lua_ls` | Lua | globals `vim` declarado |
+| `lua_ls` | Lua | `vim` global declared |
 | `pyright` | Python | `openFilesOnly`, `typeCheckingMode = basic` |
-| `ruff` | Python | solo formato (lint desactivado, lo maneja nvim-lint) |
-| `ts_ls` | TypeScript/JS | inlay hints activados, `single_file_support = false` |
+| `ruff` | Python | format only (lint disabled, handled by nvim-lint) |
+| `ts_ls` | TypeScript/JS | inlay hints enabled, `single_file_support = false` |
 
-Mason instala automáticamente: `html, cssls, tailwindcss, lua_ls, basedpyright, ruff, prettier, stylua`
+Mason auto-installs: `html, cssls, tailwindcss, lua_ls, basedpyright, ruff, prettier, stylua`
 
 ---
 
@@ -128,40 +128,40 @@ Mason instala automáticamente: `html, cssls, tailwindcss, lua_ls, basedpyright,
 
 `lua/milo/plugins/formatting.lua` (conform.nvim):
 
-- **JS/TS:** `prettier` siempre
-- **Python:** formateadores condicionales según archivos de config presentes en el proyecto:
-  - `ruff.toml` o `pyproject.toml` → `ruff_format`
-  - `.isort.cfg` o `pyproject.toml` → `isort`
+- **JS/TS:** `prettier` always
+- **Python:** conditional formatters based on config files present in the project:
+  - `ruff.toml` or `pyproject.toml` → `ruff_format`
+  - `.isort.cfg` or `pyproject.toml` → `isort`
   - `pyproject.toml` → `black`
-- **Auto-format on save:** solo para archivos dentro de `tom-workspace/*`
+- **Auto-format on save:** only for files inside `tom-workspace/*`
 - **Manual:** `<leader>fa`
 
 ---
 
 ## Markdown
 
-Dos plugins trabajan juntos:
-- **markview.nvim** — renderiza markdown con colores, headings, listas, tablas (modo hybrid: preview en normal, edición en insert)
-- **image.nvim** — renderiza imágenes en la terminal (backend Kitty). Resuelve paths de imágenes relativas al vault de Obsidian en `~/workspace/tom-notes-obsidian`
+Two plugins work together:
+- **markview.nvim** — renders markdown with colors, headings, lists, tables (hybrid mode: preview in normal, edit in insert)
+- **image.nvim** — renders images in the terminal (Kitty backend). Resolves image paths relative to the Obsidian vault at `~/workspace/tom-notes-obsidian`
 
-Los colores de markdown (headings, links, code) están definidos en `lua/milo/plugins/colorschema.lua` como overrides de gruvbox, usando la paleta de **Tokyo Night night**.
+Markdown colors (headings, links, code) are defined in `lua/milo/plugins/colorschema.lua` as gruvbox overrides, using the **Tokyo Night night** palette.
 
 ---
 
 ## Color Scheme
 
-**Activo: gruvbox** (`contrast = "hard"`)
+**Active: gruvbox** (`contrast = "hard"`)
 
-Overrides notables:
-- Keywords en púrpura retro (`#B16286`)
-- Headings markdown H1-H6 con paleta Tokyo Night (azul, lila, naranja, cyan, verde, teal)
-- Inline code: verde sobre fondo oscuro
+Notable overrides:
+- Keywords in retro purple (`#B16286`)
+- Markdown headings H1-H6 with Tokyo Night palette (blue, lilac, orange, cyan, green, teal)
+- Inline code: green on dark background
 
-Para cambiar de tema:
+To switch theme:
 ```lua
--- En colorschema.lua, descomentar la línea:
-vim.cmd("colorscheme catppuccin")  -- o tokyonight, vscode
--- Y comentar:
+-- In colorschema.lua, uncomment:
+vim.cmd("colorscheme catppuccin")  -- or tokyonight, vscode
+-- And comment out:
 vim.cmd("colorscheme gruvbox")
 ```
 
@@ -169,23 +169,23 @@ vim.cmd("colorscheme gruvbox")
 
 ## PR Review Workflow
 
-1. `<leader>lg` → LazyGit para context, stash, branch management
-2. `<leader>op` → Octo para ver PRs de GitHub con contexto completo
-3. `<leader>rr` → neo-reviewer para review inline con AI feedback
-4. Conflictos de merge → diffview.nvim (`:DiffviewOpen`)
+1. `<leader>lg` → LazyGit for context, stash, branch management
+2. `<leader>op` → Octo to browse GitHub PRs with full context
+3. `<leader>rr` → neo-reviewer for inline review with AI feedback
+4. Merge conflicts → diffview.nvim (`:DiffviewOpen`)
 
 ---
 
 ## Sessions
 
-`auto-session` guarda y restaura sesiones automáticamente por directorio de trabajo. Sin configuración manual requerida.
+`auto-session` saves and restores sessions automatically per working directory. No manual configuration required.
 
 ---
 
-## Plugins Removidos
+## Removed Plugins
 
-| Plugin | Reemplazado por |
-|--------|----------------|
-| telescope.nvim (como picker principal) | snacks.nvim |
+| Plugin | Replaced by |
+|--------|-------------|
+| telescope.nvim (as main picker) | snacks.nvim |
 | lspsaga.nvim | vim built-ins + Snacks picker |
-| lualine custom theme | `evil_lualine` theme integrado |
+| lualine custom theme | built-in `evil_lualine` theme |
